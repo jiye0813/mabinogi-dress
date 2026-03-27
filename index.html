@@ -1,309 +1,285 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>MABINOGI DRESS ROOM</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&family=Bebas+Neue&family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet"/>
 <script src="data.js"></script>
 <style>
-:root {
-  --sidebar-w: 220px;
-  --topbar-h: 60px;
-  --orange: #FF6B2B;
-  --orange-light: #FF9F1C;
-  --orange-bg: rgba(255,107,43,0.1);
-  --green: #2BBF6B;
-  --green-bg: rgba(43,191,107,0.1);
-  --purple: #7C3AED;
-  --purple-bg: rgba(124,58,237,0.1);
-  --pink: #EC4899;
-  --pink-bg: rgba(236,72,153,0.1);
-  --blue: #3B82F6;
-  --blue-bg: rgba(59,130,246,0.1);
-  --bg: #0F1117;
-  --surface: #1A1D27;
-  --surface2: #222637;
-  --surface3: #2C3048;
-  --border: rgba(255,255,255,0.07);
-  --border2: rgba(255,255,255,0.12);
-  --text: #F1F2F6;
-  --text-sub: #8B90A7;
-  --text-muted: #555A72;
+:root{
+  --orange:#FF6B2B;--orange-light:#FF9F1C;--orange-bg:rgba(255,107,43,0.1);
+  --green:#2BBF6B;--green-bg:rgba(43,191,107,0.1);
+  --purple:#7C3AED;--purple-bg:rgba(124,58,237,0.1);
+  --pink:#EC4899;--pink-bg:rgba(236,72,153,0.1);
+  --blue:#3B82F6;--blue-bg:rgba(59,130,246,0.1);
+  --yellow:#F59E0B;--yellow-bg:rgba(245,158,11,0.1);
+  --bg:#0F1117;--surface:#1A1D27;--surface2:#222637;--surface3:#2C3048;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --text:#F1F2F6;--text-sub:#8B90A7;--text-muted:#555A72;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;overflow:hidden;}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);display:flex;}
-
-/* SIDEBAR */
-.sidebar{width:var(--sidebar-w);height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;z-index:50;overflow:hidden;}
-.sidebar-logo{padding:20px 20px 16px;border-bottom:1px solid var(--border);}
-.logo-text{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--text);line-height:1;}
+.sidebar{width:220px;height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
+.sidebar-logo{padding:18px 18px 14px;border-bottom:1px solid var(--border);}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;line-height:1;}
 .logo-text span{color:var(--orange);}
 .logo-sub{font-size:10px;color:var(--text-muted);margin-top:3px;letter-spacing:1px;text-transform:uppercase;}
-.sidebar-section{padding:16px 12px 4px;}
-.sidebar-section-label{font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:1.2px;text-transform:uppercase;padding:0 8px 8px;}
-.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text-sub);transition:all 0.18s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;font-family:'Noto Sans KR',sans-serif;}
+.sidebar-sec{padding:14px 10px 4px;}
+.sidebar-sec-label{font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:1.2px;text-transform:uppercase;padding:0 8px 8px;}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text-sub);transition:all .18s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;font-family:'Noto Sans KR',sans-serif;}
 .nav-item:hover{background:var(--surface2);color:var(--text);}
 .nav-item.active{background:var(--orange-bg);color:var(--orange);}
-.nav-icon{width:16px;height:16px;flex-shrink:0;opacity:0.7;}
+.nav-icon{width:15px;height:15px;flex-shrink:0;opacity:.7;}
 .nav-item.active .nav-icon{opacity:1;color:var(--orange);}
-.nav-badge{margin-left:auto;font-size:10px;font-weight:700;background:var(--orange);color:#fff;padding:1px 6px;border-radius:10px;}
-.nav-badge.green{background:var(--green);}
-.sidebar-bottom{margin-top:auto;padding:16px 12px;border-top:1px solid var(--border);}
-.user-info{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;background:var(--surface2);}
-.user-avatar{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--orange),var(--orange-light));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;flex-shrink:0;}
-.user-name{font-size:12px;font-weight:700;color:var(--text);}
+.nav-badge{margin-left:auto;font-size:10px;font-weight:700;background:var(--orange);color:#fff;padding:1px 6px;border-radius:9px;}
+.nav-badge.g{background:var(--green);}
+.sidebar-bottom{margin-top:auto;padding:14px 10px;border-top:1px solid var(--border);}
+.user-info{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:7px;background:var(--surface2);}
+.user-avatar{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,var(--orange),var(--orange-light));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;flex-shrink:0;}
+.user-name{font-size:12px;font-weight:700;}
 .user-role{font-size:10px;color:var(--text-muted);}
-
-/* MAIN */
 .main-area{flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden;min-width:0;}
-.topbar{height:var(--topbar-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:12px;flex-shrink:0;}
-.topbar-title{font-size:16px;font-weight:900;color:var(--text);white-space:nowrap;}
-.topbar-title span{color:var(--text-sub);font-weight:400;font-size:13px;margin-left:8px;}
-.topbar-search{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:0 12px;height:34px;transition:border-color 0.2s;flex:1;max-width:320px;margin-left:auto;}
+.topbar{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:10px;flex-shrink:0;}
+.topbar-title{font-size:15px;font-weight:900;white-space:nowrap;}
+.topbar-title span{color:var(--text-sub);font-weight:400;font-size:12px;margin-left:8px;}
+.topbar-search{display:flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:0 11px;height:32px;flex:1;max-width:300px;margin-left:auto;transition:border-color .2s;}
 .topbar-search:focus-within{border-color:var(--orange);}
 .topbar-search input{border:none;background:transparent;font-family:inherit;font-size:13px;color:var(--text);outline:none;width:100%;}
 .topbar-search input::placeholder{color:var(--text-muted);}
-.topbar-btn{display:flex;align-items:center;gap:6px;padding:0 14px;height:34px;border-radius:8px;font-family:'Noto Sans KR',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.18s;border:1px solid var(--border2);background:var(--surface2);color:var(--text-sub);white-space:nowrap;}
+.topbar-btn{display:flex;align-items:center;gap:5px;padding:0 13px;height:32px;border-radius:7px;font-family:'Noto Sans KR',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .18s;border:1px solid var(--border2);background:var(--surface2);color:var(--text-sub);white-space:nowrap;text-decoration:none;}
 .topbar-btn:hover{border-color:var(--orange);color:var(--orange);}
-.topbar-btn.primary{background:var(--orange);border-color:var(--orange);color:#fff;}
-.topbar-btn.primary:hover{background:var(--orange-light);border-color:var(--orange-light);}
 .topbar-btn.admin{border-color:var(--purple);color:var(--purple);background:var(--purple-bg);}
 .topbar-btn.admin:hover{background:var(--purple);color:#fff;}
-
-/* CONTENT */
-.content{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:20px;}
+.content{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:16px;}
 .content::-webkit-scrollbar{width:4px;}
-.content::-webkit-scrollbar-track{background:transparent;}
 .content::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:4px;}
-
-/* STAT CARDS */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;transition:border-color 0.2s;}
-.stat-card:hover{border-color:var(--border2);}
-.stat-card-top{display:flex;align-items:center;justify-content:space-between;}
-.stat-card-label{font-size:12px;font-weight:600;color:var(--text-sub);}
-.stat-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;}
-.stat-icon.orange{background:var(--orange-bg);color:var(--orange);}
-.stat-icon.green{background:var(--green-bg);color:var(--green);}
-.stat-icon.purple{background:var(--purple-bg);color:var(--purple);}
-.stat-icon.pink{background:var(--pink-bg);color:var(--pink);}
-.stat-value{font-size:26px;font-weight:900;color:var(--text);line-height:1;}
-.stat-value span{font-size:13px;font-weight:500;color:var(--text-sub);margin-left:4px;}
-.stat-trend{font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px;}
-.stat-trend.up{color:var(--green);}
-.stat-trend.down{color:var(--pink);}
-.stat-trend.neutral{color:var(--text-muted);}
-
-/* MIDDLE ROW */
-.middle-row{display:grid;grid-template-columns:1fr 280px;gap:14px;}
-.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
-.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
-.card-title{font-size:14px;font-weight:700;color:var(--text);}
-.card-sub{font-size:12px;color:var(--text-muted);margin-top:2px;}
-.legend{display:flex;gap:14px;flex-wrap:wrap;}
-.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-sub);}
-.legend-dot{width:8px;height:8px;border-radius:2px;}
-.bar-chart{display:flex;align-items:flex-end;gap:6px;height:100px;}
-.bar-group{display:flex;gap:2px;align-items:flex-end;flex:1;}
-.bar{flex:1;border-radius:4px 4px 0 0;transition:opacity 0.2s;cursor:pointer;}
-.bar:hover{opacity:0.75;}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:14px 16px;display:flex;flex-direction:column;gap:9px;}
+.stat-top{display:flex;align-items:center;justify-content:space-between;}
+.stat-label{font-size:11px;font-weight:600;color:var(--text-sub);}
+.stat-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.si-o{background:var(--orange-bg);color:var(--orange);}
+.si-g{background:var(--green-bg);color:var(--green);}
+.si-p{background:var(--purple-bg);color:var(--purple);}
+.si-pk{background:var(--pink-bg);color:var(--pink);}
+.stat-val{font-size:24px;font-weight:900;line-height:1;}
+.stat-val span{font-size:12px;font-weight:500;color:var(--text-sub);margin-left:3px;}
+.stat-note{font-size:11px;font-weight:600;display:flex;align-items:center;gap:3px;color:var(--text-muted);}
+.stat-note.up{color:var(--green);}
+.stat-note.dn{color:var(--pink);}
+.mid-row{display:grid;grid-template-columns:1fr 260px;gap:12px;}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:16px 18px;}
+.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.card-title{font-size:13px;font-weight:700;}
+.card-sub{font-size:11px;color:var(--text-muted);margin-top:1px;}
+.legend{display:flex;gap:12px;}
+.leg-item{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text-sub);}
+.leg-dot{width:7px;height:7px;border-radius:2px;}
+.bar-chart{display:flex;align-items:flex-end;gap:5px;height:90px;}
 .bar-wrap{display:flex;flex-direction:column;flex:1;}
-.donut-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;}
-.donut-list{display:flex;flex-direction:column;gap:6px;margin-top:12px;}
-.donut-row{display:flex;align-items:center;gap:8px;}
-.donut-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
-.donut-name{font-size:12px;color:var(--text-sub);flex:1;}
-.donut-count{font-size:12px;font-weight:700;color:var(--text);}
-.donut-bar-bg{flex:2;background:var(--surface2);border-radius:4px;height:4px;overflow:hidden;}
-.donut-bar-fill{height:100%;border-radius:4px;}
-
-/* FILTER + TABLE */
-.bottom-section{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
-.filter-bar{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:8px;}
-.filter-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
-.filter-label{font-size:11px;font-weight:700;color:var(--text-muted);min-width:30px;letter-spacing:0.5px;}
-.filter-divider{border:none;border-top:1px solid var(--border);margin:0;}
-.chip{border:1px solid var(--border2);background:transparent;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:600;color:var(--text-sub);cursor:pointer;transition:all 0.18s;font-family:'Noto Sans KR',sans-serif;}
+.bar-group{display:flex;gap:2px;align-items:flex-end;flex:1;}
+.bar{flex:1;border-radius:3px 3px 0 0;cursor:pointer;}
+.bar:hover{opacity:.7;}
+.bar-labels{display:flex;gap:5px;margin-top:3px;}
+.bar-lbl{flex:1;text-align:center;font-size:9px;color:var(--text-muted);}
+.style-wrap{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:16px 18px;display:flex;flex-direction:column;}
+.style-list{display:flex;flex-direction:column;gap:5px;margin-top:10px;}
+.style-row{display:flex;align-items:center;gap:7px;}
+.style-dot{width:7px;height:7px;border-radius:2px;flex-shrink:0;}
+.style-name{font-size:11px;color:var(--text-sub);flex:1;}
+.style-bar-bg{flex:2;background:var(--surface2);border-radius:3px;height:4px;overflow:hidden;}
+.style-bar-fill{height:100%;border-radius:3px;}
+.style-cnt{font-size:11px;font-weight:700;}
+.bottom-sec{background:var(--surface);border:1px solid var(--border);border-radius:11px;overflow:hidden;}
+.filter-bar{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:7px;}
+.filter-row{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+.filter-label{font-size:11px;font-weight:700;color:var(--text-muted);min-width:28px;}
+.filter-div{border:none;border-top:1px solid var(--border);margin:0;}
+.chip{border:1px solid var(--border2);background:transparent;border-radius:5px;padding:3px 9px;font-size:11px;font-weight:600;color:var(--text-sub);cursor:pointer;transition:all .18s;font-family:'Noto Sans KR',sans-serif;}
 .chip:hover{border-color:var(--orange);color:var(--orange);}
 .chip.active{background:var(--orange-bg);border-color:var(--orange);color:var(--orange);}
 .chip.race:hover{border-color:var(--purple);color:var(--purple);}
 .chip.race.active{background:var(--purple-bg);border-color:var(--purple);color:var(--purple);}
-.chip.green:hover{border-color:var(--green);color:var(--green);}
-.chip.green.active{background:var(--green-bg);border-color:var(--green);color:var(--green);}
-.chip.style:hover{border-color:var(--pink);color:var(--pink);}
-.chip.style.active{background:var(--pink-bg);border-color:var(--pink);color:var(--pink);}
-
-/* TABLE */
-.table-toolbar{padding:12px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
-.result-count{font-size:13px;font-weight:700;color:var(--text);}
+.chip.type:hover{border-color:var(--green);color:var(--green);}
+.chip.type.active{background:var(--green-bg);border-color:var(--green);color:var(--green);}
+.chip.sty:hover{border-color:var(--pink);color:var(--pink);}
+.chip.sty.active{background:var(--pink-bg);border-color:var(--pink);color:var(--pink);}
+.tbl-toolbar{padding:10px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+.result-count{font-size:13px;font-weight:700;}
 .result-count span{color:var(--orange);}
-.view-toggle{display:flex;gap:4px;}
-.view-btn{width:28px;height:28px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.18s;}
+.view-toggle{display:flex;gap:3px;}
+.view-btn{width:26px;height:26px;border-radius:5px;border:1px solid var(--border2);background:transparent;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s;}
 .view-btn:hover,.view-btn.active{border-color:var(--orange);color:var(--orange);background:var(--orange-bg);}
-.table-wrap{overflow-x:auto;}
+.tbl-wrap{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;}
-thead th{padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:0.5px;text-transform:uppercase;border-bottom:1px solid var(--border);white-space:nowrap;background:var(--surface);}
-tbody tr{border-bottom:1px solid var(--border);transition:background 0.15s;cursor:pointer;}
+thead th{padding:9px 14px;text-align:left;font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid var(--border);white-space:nowrap;background:var(--surface);}
+tbody tr{border-bottom:1px solid var(--border);transition:background .15s;cursor:pointer;}
 tbody tr:hover{background:var(--surface2);}
 tbody tr:last-child{border-bottom:none;}
-td{padding:10px 16px;font-size:13px;color:var(--text);white-space:nowrap;}
-.td-name{display:flex;align-items:center;gap:10px;}
-.td-icon{width:32px;height:32px;border-radius:8px;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--text-muted);flex-shrink:0;}
-.td-name-text{font-size:12px;font-weight:600;color:var(--text);max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;display:inline-block;}
-.tag-gender{background:var(--orange-bg);color:var(--orange);}
-.tag-race{background:var(--purple-bg);color:var(--purple);}
-.tag-type{background:var(--green-bg);color:var(--green);}
-.tag-style{background:var(--pink-bg);color:var(--pink);}
-.tag-onsale{background:var(--green-bg);color:var(--green);}
-.tag-nosale{background:var(--surface2);color:var(--text-muted);}
-.tag-limited{background:var(--orange-bg);color:var(--orange);}
-.tag-perm{background:var(--surface2);color:var(--text-muted);}
-.price-text{font-weight:700;color:var(--text);font-size:12px;}
-.resale-num{font-weight:900;color:var(--blue);font-size:14px;}
-.grid-view{display:none;padding:16px;}
-.grid-view.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;}
-.g-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:all 0.2s;}
+td{padding:9px 14px;font-size:13px;white-space:nowrap;}
+.td-name{display:flex;align-items:center;gap:9px;}
+.td-thumb{width:30px;height:30px;border-radius:6px;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;}
+.td-thumb img{width:100%;height:100%;object-fit:cover;}
+.td-thumb-pl{font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--text-muted);}
+.td-name-text{font-size:12px;font-weight:600;max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tag{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;display:inline-block;}
+.tg{background:var(--orange-bg);color:var(--orange);}
+.tr2{background:var(--purple-bg);color:var(--purple);}
+.tt{background:var(--green-bg);color:var(--green);}
+.ts{background:var(--pink-bg);color:var(--pink);}
+.ton{background:var(--green-bg);color:var(--green);}
+.toff{background:var(--surface2);color:var(--text-muted);}
+.tlim{background:var(--orange-bg);color:var(--orange);}
+.tperm{background:var(--surface2);color:var(--text-muted);}
+.sale-num{font-weight:900;color:var(--blue);font-size:14px;}
+.price-txt{font-weight:700;font-size:12px;}
+.style-tags{display:flex;gap:3px;flex-wrap:wrap;}
+.grid-view{display:none;padding:14px;}
+.grid-view.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;}
+.g-card{background:var(--surface2);border:1px solid var(--border);border-radius:9px;overflow:hidden;cursor:pointer;transition:all .2s;}
 .g-card:hover{border-color:var(--orange);transform:translateY(-2px);}
-.g-card-img{height:100px;background:var(--surface3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--text-muted);}
-.g-card-body{padding:10px 12px;}
-.g-card-name{font-size:11px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.3;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
-.g-card-tags{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:6px;}
+.g-card-img{height:95px;background:var(--surface3);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.g-card-img img{width:100%;height:100%;object-fit:cover;}
+.g-card-img-pl{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--text-muted);}
+.g-card-body{padding:9px 11px;}
+.g-card-name{font-size:11px;font-weight:700;margin-bottom:5px;line-height:1.3;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.g-card-tags{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:5px;}
 .g-card-price{font-size:12px;font-weight:900;color:var(--orange);}
-.no-result{padding:48px 20px;text-align:center;color:var(--text-muted);font-size:14px;}
-
+.no-result{padding:40px;text-align:center;color:var(--text-muted);font-size:14px;}
 /* MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:500;display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(5px);}
 .modal-overlay.open{display:flex;}
-.modal{background:var(--surface);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:820px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,0.5);animation:slideUp 0.25s ease;}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:14px;width:100%;max-width:800px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.55);animation:slideUp .24s ease;}
 .modal::-webkit-scrollbar{width:4px;}
 .modal::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:4px;}
-@keyframes slideUp{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
-.modal-header{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
-.modal-header h2{font-size:18px;font-weight:900;color:var(--text);margin-bottom:6px;}
-.modal-close{width:30px;height:30px;background:var(--surface2);border:1px solid var(--border2);border-radius:6px;color:var(--text-sub);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.18s;flex-shrink:0;}
+@keyframes slideUp{from{transform:translateY(18px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.modal-hd{padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+.modal-hd h2{font-size:17px;font-weight:900;margin-bottom:5px;}
+.modal-close{width:28px;height:28px;background:var(--surface2);border:1px solid var(--border2);border-radius:6px;color:var(--text-sub);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s;flex-shrink:0;font-size:14px;}
 .modal-close:hover{border-color:var(--orange);color:var(--orange);}
-.modal-body{padding:20px 24px;display:flex;flex-direction:column;gap:20px;}
-.modal-layout{display:grid;grid-template-columns:160px 1fr;gap:16px;}
-.modal-img-box{height:160px;background:var(--surface2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--text-muted);border:1px solid var(--border);}
-.info-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
-.info-tag{font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;}
-.info-tag-orange{background:var(--orange-bg);color:var(--orange);}
-.info-tag-green{background:var(--green-bg);color:var(--green);}
-.info-tag-purple{background:var(--purple-bg);color:var(--purple);}
-.info-tag-pink{background:var(--pink-bg);color:var(--pink);}
-.info-tag-gray{background:var(--surface2);color:var(--text-sub);}
-.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.stat-box{background:var(--surface2);border-radius:8px;padding:10px 12px;border:1px solid var(--border);}
-.stat-box-label{font-size:10px;color:var(--text-muted);margin-bottom:3px;}
-.stat-box-value{font-size:18px;font-weight:900;color:var(--text);}
-.stat-box-value.orange{color:var(--orange);}
-.stat-box-value.green{color:var(--green);}
-.m-section{}
-.m-section-title{font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
-.m-section-title::before{content:'';width:3px;height:12px;border-radius:2px;background:var(--orange);display:block;}
-.m-section-title.green::before{background:var(--green);}
-.m-section-title.blue::before{background:var(--blue);}
-.parts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;}
-.part-row{background:var(--surface2);border-radius:7px;padding:8px 12px;border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
-.part-name{font-size:12px;font-weight:500;color:var(--text);}
-.part-count{font-size:11px;font-weight:700;color:var(--orange);background:var(--orange-bg);padding:1px 6px;border-radius:4px;}
-.enchant-list{display:flex;flex-direction:column;gap:6px;}
-.enchant-row{background:var(--green-bg);border:1px solid rgba(43,191,107,0.2);border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:flex-start;}
+.modal-body{padding:18px 22px;display:flex;flex-direction:column;gap:18px;}
+.info-tags{display:flex;gap:4px;flex-wrap:wrap;}
+.itag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;}
+.itag-o{background:var(--orange-bg);color:var(--orange);}
+.itag-g{background:var(--green-bg);color:var(--green);}
+.itag-p{background:var(--purple-bg);color:var(--purple);}
+.itag-pk{background:var(--pink-bg);color:var(--pink);}
+.itag-gr{background:var(--surface2);color:var(--text-sub);}
+.m-layout{display:grid;grid-template-columns:200px 1fr;gap:14px;}
+.m-img-gallery{display:flex;flex-direction:column;gap:6px;}
+.m-img-main{height:180px;border-radius:9px;border:1px solid var(--border);background:var(--surface2);overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.m-img-main img{width:100%;height:100%;object-fit:cover;}
+.m-img-pl{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--text-muted);}
+.m-img-thumbs{display:flex;gap:5px;flex-wrap:wrap;}
+.m-img-thumb{width:40px;height:40px;border-radius:5px;border:1px solid var(--border);background:var(--surface2);overflow:hidden;cursor:pointer;}
+.m-img-thumb img{width:100%;height:100%;object-fit:cover;}
+.m-img-thumb.active{border-color:var(--orange);}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px;}
+.stat-box{background:var(--surface2);border-radius:7px;padding:9px 11px;border:1px solid var(--border);}
+.stat-box-label{font-size:10px;color:var(--text-muted);margin-bottom:2px;}
+.stat-box-val{font-size:17px;font-weight:900;}
+.stat-box-val.o{color:var(--orange);}
+.stat-box-val.g{color:var(--green);}
+.m-sec{}
+.m-sec-title{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:9px;display:flex;align-items:center;gap:5px;}
+.m-sec-title::before{content:'';width:3px;height:10px;border-radius:2px;background:var(--orange);display:block;}
+.m-sec-title.g::before{background:var(--green);}
+.m-sec-title.b::before{background:var(--blue);}
+.m-sec-title.p::before{background:var(--purple);}
+.m-sec-title.y::before{background:var(--yellow);}
+.ability-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.ability-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;display:flex;align-items:center;gap:4px;}
+.ability-badge.ok{background:var(--green-bg);border:1px solid rgba(43,191,107,.3);color:var(--green);}
+.ability-badge.no{background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);}
+.color-parts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:5px;}
+.color-part-row{background:var(--surface2);border-radius:6px;padding:7px 11px;border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.color-part-name{font-size:12px;font-weight:500;}
+.color-part-cnt{font-size:11px;font-weight:700;color:var(--orange);background:var(--orange-bg);padding:1px 6px;border-radius:3px;}
+.color-total-badge{font-size:12px;font-weight:700;color:var(--orange);background:var(--orange-bg);border:1px solid var(--orange);padding:3px 10px;border-radius:6px;display:inline-flex;align-items:center;gap:5px;margin-bottom:8px;}
+.enchant-list{display:flex;flex-direction:column;gap:5px;}
+.enchant-row{background:var(--green-bg);border:1px solid rgba(43,191,107,.2);border-radius:7px;padding:9px 13px;display:flex;justify-content:space-between;align-items:flex-start;}
 .enchant-name{font-size:12px;font-weight:700;color:var(--green);}
-.enchant-slot{font-size:10px;color:var(--text-muted);margin-top:2px;}
+.enchant-slot{font-size:10px;color:var(--text-muted);margin-top:1px;}
 .enchant-effect{font-size:11px;color:var(--text-sub);text-align:right;max-width:55%;}
-.price-box{background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;}
-.price-label{font-size:11px;color:var(--text-muted);margin-bottom:4px;}
-.price-value{font-size:22px;font-weight:900;color:var(--orange);}
+.set-info-box{background:var(--yellow-bg);border:1px solid rgba(245,158,11,.25);border-radius:8px;padding:12px 15px;font-size:13px;color:var(--text-sub);line-height:1.7;white-space:pre-wrap;}
+.price-box{background:var(--surface2);border:1px solid var(--border2);border-radius:9px;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;}
+.price-label{font-size:10px;color:var(--text-muted);margin-bottom:3px;}
+.price-value{font-size:21px;font-weight:900;color:var(--orange);}
 .price-date{font-size:10px;color:var(--text-muted);margin-top:2px;}
 .price-range{text-align:right;display:flex;flex-direction:column;gap:4px;}
-.price-range-row{display:flex;align-items:center;gap:6px;justify-content:flex-end;}
+.price-range-row{display:flex;align-items:center;gap:5px;justify-content:flex-end;}
 .price-range-label{font-size:10px;color:var(--text-muted);}
-.price-range-val{font-size:12px;font-weight:700;}
-.price-range-val.low{color:var(--green);}
-.price-range-val.high{color:var(--pink);}
-.resale-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
-.resale-stat{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;text-align:center;}
-.resale-stat-val{font-size:20px;font-weight:900;color:var(--blue);line-height:1;}
-.resale-stat-label{font-size:10px;color:var(--text-muted);margin-top:4px;}
-.resale-timeline{display:flex;flex-direction:column;gap:0;}
-.timeline-item{display:flex;gap:12px;position:relative;}
-.timeline-item::before{content:'';position:absolute;left:13px;top:28px;bottom:-6px;width:1px;background:var(--border2);}
-.timeline-item:last-child::before{display:none;}
-.timeline-left{display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;padding-top:6px;}
-.timeline-dot{width:26px;height:26px;border-radius:50%;background:var(--blue-bg);border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:var(--blue);flex-shrink:0;}
-.timeline-dot.first{background:var(--orange-bg);border-color:var(--orange);color:var(--orange);}
-.timeline-right{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;flex:1;margin-bottom:8px;}
-.timeline-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;gap:8px;flex-wrap:wrap;}
-.timeline-period{font-size:12px;font-weight:700;color:var(--text);}
-.timeline-channel-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;}
-.ch-cashshop{background:var(--orange-bg);color:var(--orange);}
+.prv-low{font-size:12px;font-weight:700;color:var(--green);}
+.prv-high{font-size:12px;font-weight:700;color:var(--pink);}
+.sale-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px;}
+.sale-stat{background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:9px 11px;text-align:center;}
+.sale-stat-val{font-size:19px;font-weight:900;color:var(--blue);line-height:1;}
+.sale-stat-label{font-size:10px;color:var(--text-muted);margin-top:3px;}
+.timeline{display:flex;flex-direction:column;}
+.tl-item{display:flex;gap:10px;position:relative;}
+.tl-item::before{content:'';position:absolute;left:12px;top:26px;bottom:-5px;width:1px;background:var(--border2);}
+.tl-item:last-child::before{display:none;}
+.tl-left{display:flex;align-items:flex-start;padding-top:5px;flex-shrink:0;}
+.tl-dot{width:24px;height:24px;border-radius:50%;background:var(--blue-bg);border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:var(--blue);}
+.tl-dot.first{background:var(--orange-bg);border-color:var(--orange);color:var(--orange);}
+.tl-right{background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:9px 13px;flex:1;margin-bottom:7px;}
+.tl-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;gap:7px;flex-wrap:wrap;}
+.tl-period{font-size:12px;font-weight:700;}
+.tl-ch{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;}
+.ch-cash{background:var(--orange-bg);color:var(--orange);}
 .ch-event{background:var(--purple-bg);color:var(--purple);}
-.ch-package{background:var(--pink-bg);color:var(--pink);}
-.timeline-meta{display:flex;gap:12px;flex-wrap:wrap;}
-.timeline-meta-item{font-size:11px;color:var(--text-muted);}
-.timeline-meta-item strong{color:var(--text-sub);font-weight:600;}
-.resale-empty{background:var(--surface2);border:1px dashed var(--border2);border-radius:8px;padding:24px;text-align:center;color:var(--text-muted);font-size:13px;}
-
-/* TOAST */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:12px 18px;font-size:13px;font-weight:600;color:var(--text);box-shadow:0 8px 32px rgba(0,0,0,0.4);z-index:9999;transform:translateY(20px);opacity:0;transition:all 0.3s;pointer-events:none;}
+.ch-pkg{background:var(--pink-bg);color:var(--pink);}
+.tl-meta{display:flex;gap:10px;flex-wrap:wrap;}
+.tl-meta-item{font-size:11px;color:var(--text-muted);}
+.tl-meta-item strong{color:var(--text-sub);font-weight:600;}
+.sale-empty{background:var(--surface2);border:1px dashed var(--border2);border-radius:7px;padding:20px;text-align:center;color:var(--text-muted);font-size:13px;}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--surface);border:1px solid var(--border2);border-radius:9px;padding:11px 16px;font-size:13px;font-weight:600;color:var(--text);box-shadow:0 8px 30px rgba(0,0,0,.4);z-index:9999;transform:translateY(16px);opacity:0;transition:all .28s;pointer-events:none;}
 .toast.show{transform:translateY(0);opacity:1;}
 .toast.success{border-color:var(--green);color:var(--green);}
 </style>
 </head>
 <body>
-
 <aside class="sidebar">
   <div class="sidebar-logo">
     <div class="logo-text">MABINOGI <span>DRESS</span></div>
     <div class="logo-sub">DRESS ROOM v2.0</div>
   </div>
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">메인</div>
+  <div class="sidebar-sec">
+    <div class="sidebar-sec-label">메인</div>
     <button class="nav-item active" onclick="setPage('dashboard',this)">
-      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-      대시보드
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>대시보드
     </button>
-    <button class="nav-item" id="navItems" onclick="setPage('items',this)">
-      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-      의장 전체보기
+    <button class="nav-item" onclick="setPage('items',this)">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>의장 전체보기
       <span class="nav-badge" id="badgeAll">0</span>
     </button>
-    <button class="nav-item" id="navOnsale" onclick="setPage('onsale',this)">
-      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-      현재 판매중
-      <span class="nav-badge green" id="badgeSale">0</span>
+    <button class="nav-item" onclick="setPage('onsale',this)">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>현재 판매중
+      <span class="nav-badge g" id="badgeSale">0</span>
     </button>
   </div>
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">분석</div>
+  <div class="sidebar-sec">
+    <div class="sidebar-sec-label">분석</div>
     <button class="nav-item" onclick="setPage('resale',this)">
-      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-      재판매 이력
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>판매 이력
     </button>
     <button class="nav-item" onclick="setPage('price',this)">
-      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      경매장 시세
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>경매장 시세
     </button>
   </div>
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">관리</div>
+  <div class="sidebar-sec">
+    <div class="sidebar-sec-label">관리</div>
     <button class="nav-item" onclick="window.open('admin.html','_blank')">
-      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-      데이터 편집 (Admin)
-      <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-left:auto;opacity:0.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>데이터 편집 (Admin)
+      <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-left:auto;opacity:.4"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
     </button>
   </div>
   <div class="sidebar-bottom">
     <div class="user-info">
       <div class="user-avatar">DR</div>
-      <div>
-        <div class="user-name">DRESS ROOM</div>
-        <div class="user-role">관리자</div>
-      </div>
+      <div><div class="user-name">DRESS ROOM</div><div class="user-role">관리자</div></div>
     </div>
   </div>
 </aside>
@@ -312,43 +288,35 @@ td{padding:10px 16px;font-size:13px;color:var(--text);white-space:nowrap;}
   <div class="topbar">
     <div class="topbar-title" id="topbarTitle">대시보드 <span>전체 현황 한눈에 보기</span></div>
     <div class="topbar-search">
-      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <input type="text" id="searchInput" placeholder="의장 검색..." oninput="handleSearch(this.value)"/>
     </div>
-    <button class="topbar-btn admin" onclick="window.open('admin.html','_blank')">
-      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-      Admin
-    </button>
-    <button class="topbar-btn" onclick="exportJSON()">
-      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      내보내기
-    </button>
+    <button class="topbar-btn admin" onclick="window.open('admin.html','_blank')">Admin</button>
+    <button class="topbar-btn" onclick="exportJSON()">내보내기</button>
   </div>
 
-  <div class="content" id="mainContent">
+  <div class="content">
     <div class="stats-row" id="statsRow"></div>
-    <div class="middle-row" id="middleRow">
+    <div class="mid-row">
       <div class="chart-card">
-        <div class="card-header">
+        <div class="card-hd">
           <div><div class="card-title">카테고리별 의장 수</div><div class="card-sub">종류 기준 등록 현황</div></div>
           <div class="legend">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div>등록수</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>판매중</div>
+            <div class="leg-item"><div class="leg-dot" style="background:var(--orange)"></div>등록수</div>
+            <div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div>판매중</div>
           </div>
         </div>
         <div class="bar-chart" id="barChart"></div>
-        <div style="display:flex;gap:6px;margin-top:2px;" id="barLabels"></div>
+        <div class="bar-labels" id="barLabels"></div>
       </div>
-      <div class="donut-wrap">
-        <div class="card-header">
-          <div><div class="card-title">스타일 분포</div><div class="card-sub">등록 의장 기준</div></div>
-        </div>
-        <div class="donut-list" id="donutList"></div>
+      <div class="style-wrap">
+        <div class="card-hd"><div><div class="card-title">스타일 분포</div><div class="card-sub">등록 의장 기준</div></div></div>
+        <div class="style-list" id="styleList"></div>
       </div>
     </div>
 
-    <div class="bottom-section" id="bottomSection">
-      <div class="filter-bar" id="filterBar">
+    <div class="bottom-sec">
+      <div class="filter-bar">
         <div class="filter-row">
           <span class="filter-label">성별</span>
           <button class="chip active" onclick="setFilter('gender','all',this)">전체</button>
@@ -356,7 +324,7 @@ td{padding:10px 16px;font-size:13px;color:var(--text);white-space:nowrap;}
           <button class="chip" onclick="setFilter('gender','남성',this)">남성</button>
           <button class="chip" onclick="setFilter('gender','공용',this)">공용</button>
         </div>
-        <hr class="filter-divider"/>
+        <hr class="filter-div"/>
         <div class="filter-row">
           <span class="filter-label">종족</span>
           <button class="chip race active" onclick="setFilter('race','all',this)">전체</button>
@@ -364,33 +332,27 @@ td{padding:10px 16px;font-size:13px;color:var(--text);white-space:nowrap;}
           <button class="chip race" onclick="setFilter('race','엘프',this)">엘프</button>
           <button class="chip race" onclick="setFilter('race','자이언트',this)">자이언트</button>
         </div>
-        <hr class="filter-divider"/>
-        <div class="filter-row" id="typeFilterRow">
-          <span class="filter-label">종류</span>
-        </div>
-        <hr class="filter-divider"/>
-        <div class="filter-row" id="styleFilterRow">
-          <span class="filter-label">스타일</span>
-        </div>
+        <hr class="filter-div"/>
+        <div class="filter-row" id="typeFilterRow"><span class="filter-label">종류</span></div>
+        <hr class="filter-div"/>
+        <div class="filter-row" id="styleFilterRow"><span class="filter-label">스타일</span></div>
       </div>
-
-      <div class="table-toolbar">
+      <div class="tbl-toolbar">
         <div class="result-count" id="resultCount">총 <span>0</span>개</div>
         <div class="view-toggle">
-          <button class="view-btn active" id="btnTable" onclick="setView('table')" title="테이블 뷰">
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          <button class="view-btn active" id="btnTable" onclick="setView('table')">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
           </button>
-          <button class="view-btn" id="btnGrid" onclick="setView('grid')" title="그리드 뷰">
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          <button class="view-btn" id="btnGrid" onclick="setView('grid')">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
           </button>
         </div>
       </div>
-
-      <div class="table-wrap" id="tableWrap">
+      <div class="tbl-wrap" id="tblWrap">
         <table>
           <thead><tr>
             <th>의장명</th><th>성별</th><th>종족</th><th>종류</th>
-            <th>스타일</th><th>시즌</th><th>재판매</th><th>판매상태</th><th>시세</th>
+            <th>스타일</th><th>시즌</th><th>판매 이력</th><th>판매상태</th><th>시세</th>
           </tr></thead>
           <tbody id="tableBody"></tbody>
         </table>
@@ -404,329 +366,233 @@ td{padding:10px 16px;font-size:13px;color:var(--text);white-space:nowrap;}
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal">
-    <div class="modal-header">
-      <div>
-        <h2 id="mName">-</h2>
-        <div class="info-tags" id="mTags"></div>
-      </div>
+    <div class="modal-hd">
+      <div><h2 id="mName">-</h2><div class="info-tags" id="mTags"></div></div>
       <button class="modal-close" onclick="closeModalDirect()">✕</button>
     </div>
     <div class="modal-body">
-      <div class="modal-layout">
-        <div class="modal-img-box" id="mImg">-</div>
-        <div><div class="stat-grid" id="mStats"></div></div>
+      <div class="m-layout">
+        <div class="m-img-gallery">
+          <div class="m-img-main" id="mImgMain"><span class="m-img-pl" id="mImgPl">-</span></div>
+          <div class="m-img-thumbs" id="mImgThumbs"></div>
+        </div>
+        <div>
+          <div class="stat-grid" id="mStats"></div>
+          <div class="m-sec">
+            <div class="m-sec-title p">인챈트 · 개조 · 세공</div>
+            <div class="ability-badges" id="mAbilities"></div>
+          </div>
+        </div>
       </div>
-      <div class="m-section"><div class="m-section-title">구성 파츠</div><div class="parts-grid" id="mParts"></div></div>
-      <div class="m-section"><div class="m-section-title green">인챈트 정보</div><div class="enchant-list" id="mEnchants"></div></div>
-      <div class="m-section"><div class="m-section-title">경매장 시세</div><div class="price-box" id="mPrice"></div></div>
-      <div class="m-section">
-        <div class="m-section-title blue">재판매 이력</div>
-        <div class="resale-summary" id="mResaleSummary"></div>
-        <div class="resale-timeline" id="mResaleTimeline"></div>
+      <div class="m-sec">
+        <div class="m-sec-title g">색상 파트</div>
+        <div id="mColorTotal"></div>
+        <div class="color-parts-grid" id="mColorParts"></div>
+      </div>
+      <div class="m-sec">
+        <div class="m-sec-title g">인챈트 정보</div>
+        <div class="enchant-list" id="mEnchants"></div>
+      </div>
+      <div class="m-sec" id="mSetSection">
+        <div class="m-sec-title y">세트 아이템 정보</div>
+        <div class="set-info-box" id="mSetInfo"></div>
+      </div>
+      <div class="m-sec">
+        <div class="m-sec-title">경매장 시세</div>
+        <div class="price-box" id="mPrice"></div>
+      </div>
+      <div class="m-sec">
+        <div class="m-sec-title b">판매 이력</div>
+        <div class="sale-summary" id="mSaleSummary"></div>
+        <div class="timeline" id="mSaleTimeline"></div>
       </div>
     </div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
 let ITEMS = loadItems();
-let currentFilter = { gender:'all', race:'all', type:'all', style:'all' };
+let STYLES = loadStyles();
+let currentFilter = { gender:'all', race:'all', type:'all', style:[] };
 let currentSearch = '';
 let currentView = 'table';
 let currentPage = 'dashboard';
 
-// 데이터 변경 감지 (admin 탭에서 저장하면 반영)
 window.addEventListener('storage', e => {
-  if (e.key === 'mabinogi_dress_items') {
-    ITEMS = loadItems();
-    init();
-    showToast('데이터가 업데이트되었습니다.', 'success');
-  }
+  if (e.key === 'mabinogi_dress_items') { ITEMS = loadItems(); init(); showToast('데이터 업데이트됨','success'); }
+  if (e.key === 'mabinogi_dress_styles') { STYLES = loadStyles(); renderDynamicFilters(); }
 });
 
 function init() {
-  updateBadges();
+  document.getElementById('badgeAll').textContent = ITEMS.length;
+  document.getElementById('badgeSale').textContent = ITEMS.filter(i=>i.onSale).length;
   renderDynamicFilters();
   renderStats();
   renderCharts();
-  renderTable(currentPage === 'onsale');
-}
-
-function updateBadges() {
-  document.getElementById('badgeAll').textContent = ITEMS.length;
-  document.getElementById('badgeSale').textContent = ITEMS.filter(i=>i.onSale).length;
+  renderTable();
 }
 
 function renderDynamicFilters() {
   const types = [...new Set(ITEMS.map(i=>i.type))].sort();
-  const styles = [...new Set(ITEMS.map(i=>i.style))].sort();
-  const typeRow = document.getElementById('typeFilterRow');
-  const styleRow = document.getElementById('styleFilterRow');
-  typeRow.innerHTML = '<span class="filter-label">종류</span>' +
-    '<button class="chip green active" onclick="setFilter(\'type\',\'all\',this)">전체</button>' +
-    types.map(t=>`<button class="chip green" onclick="setFilter('type','${t}',this)">${t}</button>`).join('');
-  styleRow.innerHTML = '<span class="filter-label">스타일</span>' +
-    '<button class="chip style active" onclick="setFilter(\'style\',\'all\',this)">전체</button>' +
-    styles.map(s=>`<button class="chip style" onclick="setFilter('style','${s}',this)">${s}</button>`).join('');
+  document.getElementById('typeFilterRow').innerHTML =
+    '<span class="filter-label">종류</span>' +
+    '<button class="chip type active" onclick="setFilter(\'type\',\'all\',this)">전체</button>' +
+    types.map(t=>`<button class="chip type" onclick="setFilter('type','${t}',this)">${t}</button>`).join('');
+  const allStyles = [...new Set([...STYLES, ...ITEMS.flatMap(i=>i.style||[])])];
+  document.getElementById('styleFilterRow').innerHTML =
+    '<span class="filter-label">스타일</span>' +
+    '<button class="chip sty active" id="styleAll" onclick="clearStyleFilter(this)">전체</button>' +
+    allStyles.map(s=>`<button class="chip sty ${currentFilter.style.includes(s)?'active':''}" onclick="toggleStyleFilter('${s}',this)">${s}</button>`).join('');
 }
 
-function renderStats() {
-  const total = ITEMS.length;
-  const onSale = ITEMS.filter(i=>i.onSale).length;
-  const salePct = total > 0 ? ((onSale/total)*100).toFixed(1) : 0;
-  const avgResale = total > 0 ? (ITEMS.reduce((s,i)=>s+i.resale.length,0)/total).toFixed(1) : 0;
-  const topPrice = total > 0 ? Math.max(...ITEMS.map(i=>i.price)) : 0;
-  const topItem = ITEMS.find(i=>i.price===topPrice);
-  document.getElementById('statsRow').innerHTML = `
-    <div class="stat-card">
-      <div class="stat-card-top"><div class="stat-card-label">전체 의장</div>
-        <div class="stat-icon orange"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
-      </div>
-      <div class="stat-value">${total} <span>종</span></div>
-      <div class="stat-trend neutral">전체 등록 의장 수</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-card-top"><div class="stat-card-label">현재 판매중</div>
-        <div class="stat-icon green"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
-      </div>
-      <div class="stat-value" style="color:var(--green)">${onSale} <span style="color:var(--text-sub)">종</span></div>
-      <div class="stat-trend up"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>전체의 ${salePct}% 판매중</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-card-top"><div class="stat-card-label">평균 재판매 횟수</div>
-        <div class="stat-icon purple"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div>
-      </div>
-      <div class="stat-value" style="color:var(--blue)">${avgResale} <span>회</span></div>
-      <div class="stat-trend neutral">의장당 평균 재판매</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-card-top"><div class="stat-card-label">최고 시세</div>
-        <div class="stat-icon pink"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-      </div>
-      <div class="stat-value" style="color:var(--pink)">${Math.round(topPrice/10000)} <span>만G</span></div>
-      <div class="stat-trend down">${topItem ? topItem.name.substring(0,12)+'...' : '-'}</div>
-    </div>`;
+function toggleStyleFilter(style, el) {
+  const idx = currentFilter.style.indexOf(style);
+  if(idx>=0){currentFilter.style.splice(idx,1);el.classList.remove('active');}
+  else{currentFilter.style.push(style);el.classList.add('active');}
+  const allBtn=document.getElementById('styleAll');
+  if(allBtn) allBtn.classList.toggle('active',currentFilter.style.length===0);
+  renderTable(currentPage==='onsale');
 }
-
-function renderCharts() {
-  const categories = [...new Set(ITEMS.map(i=>i.type))];
-  const colors = ['#FF6B2B','#2BBF6B','#7C3AED','#EC4899','#3B82F6','#F59E0B','#06B6D4','#10B981','#F97316','#8B5CF6'];
-  const maxCount = Math.max(1, ...categories.map(c=>ITEMS.filter(x=>x.type===c).length));
-  document.getElementById('barChart').innerHTML = categories.map((cat,i)=>{
-    const total = ITEMS.filter(x=>x.type===cat).length;
-    const sale  = ITEMS.filter(x=>x.type===cat&&x.onSale).length;
-    const h1 = Math.max(8,(total/maxCount)*100);
-    const h2 = Math.max(4,(sale/maxCount)*100);
-    return `<div class="bar-wrap"><div class="bar-group" style="height:100px">
-      <div class="bar" style="height:${h1}px;background:${colors[i%colors.length]};opacity:0.7" title="${cat}: ${total}종"></div>
-      <div class="bar" style="height:${h2}px;background:${colors[i%colors.length]}" title="판매중: ${sale}종"></div>
-    </div></div>`;
-  }).join('');
-  document.getElementById('barLabels').innerHTML = categories.map(cat=>
-    `<div style="flex:1;text-align:center;font-size:9px;color:var(--text-muted)">${cat.length>4?cat.substring(0,4)+'..':cat}</div>`
-  ).join('');
-
-  const styles = [...new Set(ITEMS.map(i=>i.style))];
-  const sc = ['#3B82F6','#EC4899','#F59E0B','#7C3AED','#2BBF6B','#FF6B2B','#06B6D4','#8B5CF6','#10B981','#F97316'];
-  const maxStyle = Math.max(1,...styles.map(s=>ITEMS.filter(x=>x.style===s).length));
-  document.getElementById('donutList').innerHTML = styles.map((s,i)=>{
-    const cnt = ITEMS.filter(x=>x.style===s).length;
-    if(!cnt) return '';
-    const pct = (cnt/maxStyle)*100;
-    return `<div class="donut-row">
-      <div class="donut-dot" style="background:${sc[i%sc.length]}"></div>
-      <div class="donut-name">${s}</div>
-      <div class="donut-bar-bg"><div class="donut-bar-fill" style="width:${pct}%;background:${sc[i%sc.length]}"></div></div>
-      <div class="donut-count">${cnt}</div>
-    </div>`;
-  }).filter(Boolean).join('');
+function clearStyleFilter(el) {
+  currentFilter.style=[];
+  document.querySelectorAll('#styleFilterRow .chip.sty').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  renderTable(currentPage==='onsale');
 }
-
-function getFiltered(onSaleOnly) {
-  return ITEMS.filter(item => {
-    if (onSaleOnly && !item.onSale) return false;
-    const gOk = currentFilter.gender==='all' || item.gender===currentFilter.gender;
-    const rOk = currentFilter.race==='all'   || item.race===currentFilter.race;
-    const tOk = currentFilter.type==='all'   || item.type===currentFilter.type;
-    const sOk = currentFilter.style==='all'  || item.style===currentFilter.style;
-    const qOk = !currentSearch || item.name.toLowerCase().includes(currentSearch.toLowerCase());
-    return gOk && rOk && tOk && sOk && qOk;
-  });
-}
-
-function fmt(n) { return n.toLocaleString('ko-KR') + 'G'; }
-
-function renderTable(onSaleOnly) {
-  const filtered = getFiltered(onSaleOnly);
-  document.getElementById('resultCount').innerHTML = '총 <span>' + filtered.length + '</span>개';
-  if (currentView === 'table') {
-    const tbody = document.getElementById('tableBody');
-    const noRes = document.getElementById('noResult');
-    if (!filtered.length) { tbody.innerHTML=''; noRes.style.display=''; return; }
-    noRes.style.display='none';
-    tbody.innerHTML = filtered.map(item=>`
-      <tr onclick="openModal(${item.id})">
-        <td><div class="td-name"><div class="td-icon">${item.icon||item.name[0]}</div><div class="td-name-text">${item.name}</div></div></td>
-        <td><span class="tag tag-gender">${item.gender}</span></td>
-        <td><span class="tag tag-race">${item.race}</span></td>
-        <td><span class="tag tag-type">${item.type}</span></td>
-        <td><span class="tag tag-style">${item.style}</span></td>
-        <td><span class="tag ${item.season==='기간한정'?'tag-limited':'tag-perm'}">${item.season}</span></td>
-        <td><span class="resale-num">${item.resale.length}회</span></td>
-        <td><span class="tag ${item.onSale?'tag-onsale':'tag-nosale'}">${item.onSale?'판매중':'판매종료'}</span></td>
-        <td><span class="price-text">${fmt(item.price)}</span></td>
-      </tr>`).join('');
-  } else {
-    const gv = document.getElementById('gridView');
-    if (!filtered.length) { gv.innerHTML='<div class="no-result">검색 결과가 없습니다.</div>'; return; }
-    gv.innerHTML = filtered.map(item=>`
-      <div class="g-card" onclick="openModal(${item.id})">
-        <div class="g-card-img">${item.icon||item.name[0]}</div>
-        <div class="g-card-body">
-          <div class="g-card-name">${item.name}</div>
-          <div class="g-card-tags">
-            <span class="tag tag-gender">${item.gender}</span>
-            <span class="tag tag-type">${item.type}</span>
-            <span class="tag tag-style">${item.style}</span>
-          </div>
-          <div class="g-card-price">${fmt(item.price)}</div>
-        </div>
-      </div>`).join('');
-  }
-}
-
-function setFilter(key, val, el) {
-  currentFilter[key] = val;
+function setFilter(key,val,el){
+  currentFilter[key]=val;
   let sel;
-  if(key==='type') sel='.chip.green';
+  if(key==='type') sel='.chip.type';
   else if(key==='race') sel='.chip.race';
-  else if(key==='style') sel='.chip.style';
-  else sel='.chip:not(.green):not(.race):not(.style)';
+  else sel='.chip:not(.race):not(.type):not(.sty)';
   el.closest('.filter-row').querySelectorAll(sel).forEach(c=>c.classList.remove('active'));
   el.classList.add('active');
   renderTable(currentPage==='onsale');
 }
+function handleSearch(v){currentSearch=v.trim();renderTable(currentPage==='onsale');}
+function getFiltered(onSaleOnly){
+  return ITEMS.filter(item=>{
+    if(onSaleOnly&&!item.onSale) return false;
+    const gOk=currentFilter.gender==='all'||item.gender===currentFilter.gender;
+    const rOk=currentFilter.race==='all'||item.race===currentFilter.race;
+    const tOk=currentFilter.type==='all'||item.type===currentFilter.type;
+    const sOk=currentFilter.style.length===0||(item.style||[]).some(s=>currentFilter.style.includes(s));
+    const qOk=!currentSearch||item.name.toLowerCase().includes(currentSearch.toLowerCase());
+    return gOk&&rOk&&tOk&&sOk&&qOk;
+  });
+}
+function fmt(n){return(n||0).toLocaleString('ko-KR')+'G';}
 
-function setView(v) {
-  currentView = v;
-  document.getElementById('btnTable').classList.toggle('active', v==='table');
-  document.getElementById('btnGrid').classList.toggle('active',  v==='grid');
-  document.getElementById('tableWrap').style.display = v==='table' ? '' : 'none';
-  document.getElementById('gridView').classList.toggle('active', v==='grid');
-  renderTable(currentPage==='onsale');
+function renderStats(){
+  const total=ITEMS.length, onSale=ITEMS.filter(i=>i.onSale).length;
+  const salePct=total>0?((onSale/total)*100).toFixed(1):0;
+  const avgSale=total>0?(ITEMS.reduce((s,i)=>s+(i.saleHistory||[]).length,0)/total).toFixed(1):0;
+  const topPrice=total>0?Math.max(...ITEMS.map(i=>i.price)):0;
+  const topItem=ITEMS.find(i=>i.price===topPrice);
+  document.getElementById('statsRow').innerHTML=`
+    <div class="stat-card"><div class="stat-top"><div class="stat-label">전체 의장</div><div class="stat-icon si-o"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div></div><div class="stat-val">${total}<span>종</span></div><div class="stat-note">전체 등록 의장 수</div></div>
+    <div class="stat-card"><div class="stat-top"><div class="stat-label">현재 판매중</div><div class="stat-icon si-g"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div></div><div class="stat-val" style="color:var(--green)">${onSale}<span style="color:var(--text-sub)">종</span></div><div class="stat-note up">전체의 ${salePct}%</div></div>
+    <div class="stat-card"><div class="stat-top"><div class="stat-label">평균 판매 이력</div><div class="stat-icon si-p"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div></div><div class="stat-val" style="color:var(--blue)">${avgSale}<span>회</span></div><div class="stat-note">의장당 평균</div></div>
+    <div class="stat-card"><div class="stat-top"><div class="stat-label">최고 시세</div><div class="stat-icon si-pk"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div></div><div class="stat-val" style="color:var(--pink)">${Math.round(topPrice/10000)}<span>만G</span></div><div class="stat-note dn">${topItem?topItem.name.substring(0,10)+'..':'-'}</div></div>`;
 }
 
-function setPage(page, btn) {
-  currentPage = page;
+function renderCharts(){
+  const cats=[...new Set(ITEMS.map(i=>i.type))];
+  const colors=['#FF6B2B','#2BBF6B','#7C3AED','#EC4899','#3B82F6','#F59E0B','#06B6D4','#10B981','#F97316','#8B5CF6'];
+  const maxC=Math.max(1,...cats.map(c=>ITEMS.filter(x=>x.type===c).length));
+  document.getElementById('barChart').innerHTML=cats.map((cat,i)=>{
+    const total=ITEMS.filter(x=>x.type===cat).length;
+    const sale=ITEMS.filter(x=>x.type===cat&&x.onSale).length;
+    const h1=Math.max(6,(total/maxC)*90),h2=Math.max(3,(sale/maxC)*90);
+    const col=colors[i%colors.length];
+    return`<div class="bar-wrap"><div class="bar-group" style="height:90px"><div class="bar" style="height:${h1}px;background:${col};opacity:.65" title="${cat}: ${total}종"></div><div class="bar" style="height:${h2}px;background:${col}" title="판매중: ${sale}종"></div></div></div>`;
+  }).join('');
+  document.getElementById('barLabels').innerHTML=cats.map(cat=>`<div class="bar-lbl">${cat.length>4?cat.substring(0,4)+'..':cat}</div>`).join('');
+  const allSU=[...new Set(ITEMS.flatMap(i=>i.style||[]))];
+  const sc=['#3B82F6','#EC4899','#F59E0B','#7C3AED','#2BBF6B','#FF6B2B','#06B6D4','#8B5CF6','#10B981','#F97316'];
+  const maxS=Math.max(1,...allSU.map(s=>ITEMS.filter(x=>(x.style||[]).includes(s)).length));
+  document.getElementById('styleList').innerHTML=allSU.map((s,i)=>{
+    const cnt=ITEMS.filter(x=>(x.style||[]).includes(s)).length;
+    if(!cnt) return '';
+    return`<div class="style-row"><div class="style-dot" style="background:${sc[i%sc.length]}"></div><div class="style-name">${s}</div><div class="style-bar-bg"><div class="style-bar-fill" style="width:${(cnt/maxS)*100}%;background:${sc[i%sc.length]}"></div></div><div class="style-cnt">${cnt}</div></div>`;
+  }).filter(Boolean).join('');
+}
+
+function renderTable(onSaleOnly){
+  const filtered=getFiltered(onSaleOnly);
+  document.getElementById('resultCount').innerHTML='총 <span>'+filtered.length+'</span>개';
+  if(currentView==='table'){
+    const tbody=document.getElementById('tableBody'),noRes=document.getElementById('noResult');
+    if(!filtered.length){tbody.innerHTML='';noRes.style.display='';return;}
+    noRes.style.display='none';
+    tbody.innerHTML=filtered.map(item=>{
+      const th=item.iconPath?`<img src="${item.iconPath}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="td-thumb-pl" style="display:none">${(item.name||'?')[0]}</span>`:`<span class="td-thumb-pl">${(item.name||'?')[0]}</span>`;
+      const stags=(item.style||[]).map(s=>`<span class="tag ts">${s}</span>`).join('');
+      return`<tr onclick="openModal(${item.id})"><td><div class="td-name"><div class="td-thumb">${th}</div><div class="td-name-text">${item.name}</div></div></td><td><span class="tag tg">${item.gender}</span></td><td><span class="tag tr2">${item.race}</span></td><td><span class="tag tt">${item.type}</span></td><td><div class="style-tags">${stags||'<span style="color:var(--text-muted);font-size:11px">-</span>'}</div></td><td><span class="tag ${item.season==='기간한정'?'tlim':'tperm'}">${item.season}</span></td><td><span class="sale-num">${(item.saleHistory||[]).length}회</span></td><td><span class="tag ${item.onSale?'ton':'toff'}">${item.onSale?'판매중':'판매종료'}</span></td><td><span class="price-txt">${fmt(item.price)}</span></td></tr>`;
+    }).join('');
+  } else {
+    const gv=document.getElementById('gridView');
+    if(!filtered.length){gv.innerHTML='<div class="no-result">검색 결과가 없습니다.</div>';return;}
+    gv.innerHTML=filtered.map(item=>`<div class="g-card" onclick="openModal(${item.id})"><div class="g-card-img">${item.iconPath?`<img src="${item.iconPath}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="g-card-img-pl" style="display:none">${(item.name||'?')[0]}</span>`:`<span class="g-card-img-pl">${(item.name||'?')[0]}</span>`}</div><div class="g-card-body"><div class="g-card-name">${item.name}</div><div class="g-card-tags"><span class="tag tg">${item.gender}</span><span class="tag tt">${item.type}</span>${(item.style||[]).slice(0,2).map(s=>`<span class="tag ts">${s}</span>`).join('')}</div><div class="g-card-price">${fmt(item.price)}</div></div></div>`).join('');
+  }
+}
+
+function setView(v){
+  currentView=v;
+  document.getElementById('btnTable').classList.toggle('active',v==='table');
+  document.getElementById('btnGrid').classList.toggle('active',v==='grid');
+  document.getElementById('tblWrap').style.display=v==='table'?'':'none';
+  document.getElementById('gridView').classList.toggle('active',v==='grid');
+  renderTable(currentPage==='onsale');
+}
+function setPage(page,btn){
+  currentPage=page;
   document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  const titles = {
-    dashboard:'대시보드 <span>전체 현황 한눈에 보기</span>',
-    items:'의장 전체보기 <span>등록된 모든 의장 목록</span>',
-    onsale:'현재 판매중 <span>캐시샵 판매 의장</span>',
-    resale:'재판매 이력 <span>과거 판매 기록 분석</span>',
-    price:'경매장 시세 <span>최신 시세 정보</span>',
-  };
-  document.getElementById('topbarTitle').innerHTML = titles[page]||titles['dashboard'];
+  const titles={dashboard:'대시보드 <span>전체 현황 한눈에 보기</span>',items:'의장 전체보기 <span>등록된 모든 의장 목록</span>',onsale:'현재 판매중 <span>캐시샵 판매 의장</span>',resale:'판매 이력 <span>과거 판매 기록 분석</span>',price:'경매장 시세 <span>최신 시세 정보</span>'};
+  document.getElementById('topbarTitle').innerHTML=titles[page]||titles['dashboard'];
   renderTable(page==='onsale');
 }
 
-function handleSearch(val) {
-  currentSearch = val.trim();
-  renderTable(currentPage==='onsale');
-}
-
-function openModal(id) {
-  const item = ITEMS.find(i=>i.id===id);
+function openModal(id){
+  const item=ITEMS.find(i=>i.id===id);
   if(!item) return;
-  document.getElementById('mName').textContent = item.name;
-  document.getElementById('mTags').innerHTML = `
-    <span class="info-tag info-tag-orange">${item.gender}</span>
-    <span class="info-tag info-tag-purple">${item.race}</span>
-    <span class="info-tag info-tag-green">${item.type}</span>
-    <span class="info-tag info-tag-pink">${item.style}</span>
-    <span class="info-tag info-tag-gray">${item.season}</span>
-    <span class="info-tag ${item.onSale?'info-tag-green':'info-tag-gray'}">${item.onSale?'판매중':'판매종료'}</span>`;
-  document.getElementById('mImg').textContent = item.icon||item.name[0];
-  document.getElementById('mStats').innerHTML = `
-    <div class="stat-box"><div class="stat-box-label">방어력</div><div class="stat-box-value orange">${item.defense}</div></div>
-    <div class="stat-box"><div class="stat-box-label">보호</div><div class="stat-box-value green">${item.prot}</div></div>
-    <div class="stat-box"><div class="stat-box-label">내구도</div><div class="stat-box-value">${item.dur}/${item.durMax}</div></div>`;
-  document.getElementById('mParts').innerHTML = (item.parts||[]).map(p=>
-    `<div class="part-row"><span class="part-name">${p.name}</span><span class="part-count">x${p.count}</span></div>`
-  ).join('') || '<div style="color:var(--text-muted);font-size:13px">파츠 정보 없음</div>';
-  document.getElementById('mEnchants').innerHTML = (item.enchants||[]).map(e=>
-    `<div class="enchant-row"><div><div class="enchant-name">${e.name}</div><div class="enchant-slot">${e.slot} 인챈트</div></div><div class="enchant-effect">${e.effect}</div></div>`
-  ).join('') || '<div style="color:var(--text-muted);font-size:13px">인챈트 정보 없음</div>';
-  document.getElementById('mPrice').innerHTML = `
-    <div>
-      <div class="price-label">현재 시세</div>
-      <div class="price-value">${fmt(item.price)}</div>
-      <div class="price-date">기준일: ${item.priceDate}</div>
-    </div>
-    <div class="price-range">
-      <div class="price-range-row"><span class="price-range-label">최저</span><span class="price-range-val low">${fmt(item.priceMin)}</span></div>
-      <div class="price-range-row"><span class="price-range-label">최고</span><span class="price-range-val high">${fmt(item.priceMax)}</span></div>
-    </div>`;
-  const rs = item.resale||[];
-  if(!rs.length) {
-    document.getElementById('mResaleSummary').innerHTML='';
-    document.getElementById('mResaleTimeline').innerHTML='<div class="resale-empty">재판매 이력이 없습니다. (신규 의장)</div>';
-  } else {
-    const sorted=[...rs].sort((a,b)=>b.nth-a.nth);
-    const lastDate=sorted[0].startDate;
+  document.getElementById('mName').textContent=item.name;
+  document.getElementById('mTags').innerHTML=`<span class="itag itag-o">${item.gender}</span><span class="itag itag-p">${item.race}</span><span class="itag itag-g">${item.type}</span>${(item.style||[]).map(s=>`<span class="itag itag-pk">${s}</span>`).join('')}<span class="itag itag-gr">${item.season}</span><span class="itag ${item.onSale?'itag-g':'itag-gr'}">${item.onSale?'판매중':'판매종료'}</span>`;
+  const mainBox=document.getElementById('mImgMain');
+  mainBox.innerHTML=item.iconPath?`<img src="${item.iconPath}" onerror="this.style.display='none'" style="width:100%;height:100%;object-fit:cover;border-radius:9px"><span class="m-img-pl" style="display:none">${(item.name||'?')[0]}</span>`:`<span class="m-img-pl">${(item.name||'?')[0]}</span>`;
+  const allImgs=[item.iconPath,...(item.imagePaths||[])].filter(Boolean);
+  document.getElementById('mImgThumbs').innerHTML=allImgs.length>1?allImgs.map((p,i)=>`<div class="m-img-thumb ${i===0?'active':''}" onclick="switchImg('${p}',this)"><img src="${p}" onerror="this.style.display='none'"></div>`).join(''):'';
+  document.getElementById('mStats').innerHTML=`<div class="stat-box"><div class="stat-box-label">방어력</div><div class="stat-box-val o">${item.defense}</div></div><div class="stat-box"><div class="stat-box-label">보호</div><div class="stat-box-val g">${item.prot}</div></div><div class="stat-box"><div class="stat-box-label">내구도</div><div class="stat-box-val">${item.dur}/${item.durMax}</div></div>`;
+  document.getElementById('mAbilities').innerHTML=[{label:'인챈트',ok:item.canEnchant},{label:'개조',ok:item.canUpgrade},{label:'세공',ok:item.canGem}].map(a=>`<span class="ability-badge ${a.ok?'ok':'no'}">${a.ok?'✓':'✕'} ${a.label} ${a.ok?'가능':'불가'}</span>`).join('');
+  const cp=item.colorParts||[];
+  const totalColors=cp.reduce((s,p)=>s+(+p.colorCount||0),0);
+  document.getElementById('mColorTotal').innerHTML=cp.length?`<div class="color-total-badge">총 ${totalColors}개 색상 파트</div>`:'';
+  document.getElementById('mColorParts').innerHTML=cp.length?cp.map(p=>`<div class="color-part-row"><span class="color-part-name">${p.name}</span><span class="color-part-cnt">${p.colorCount}색</span></div>`).join(''):'<div style="color:var(--text-muted);font-size:13px">색상 파트 정보 없음</div>';
+  document.getElementById('mEnchants').innerHTML=(item.enchants||[]).length?(item.enchants||[]).map(e=>`<div class="enchant-row"><div><div class="enchant-name">${e.name}</div><div class="enchant-slot">${e.slot} 인챈트</div></div><div class="enchant-effect">${e.effect}</div></div>`).join(''):'<div style="color:var(--text-muted);font-size:13px">인챈트 정보 없음</div>';
+  const setSection=document.getElementById('mSetSection');
+  if(item.setInfo&&item.setInfo.trim()){setSection.style.display='';document.getElementById('mSetInfo').textContent=item.setInfo;}
+  else setSection.style.display='none';
+  document.getElementById('mPrice').innerHTML=`<div><div class="price-label">현재 시세</div><div class="price-value">${fmt(item.price)}</div><div class="price-date">기준일: ${item.priceDate}</div></div><div class="price-range"><div class="price-range-row"><span class="price-range-label">최저</span><span class="prv-low">${fmt(item.priceMin)}</span></div><div class="price-range-row"><span class="price-range-label">최고</span><span class="prv-high">${fmt(item.priceMax)}</span></div></div>`;
+  const sh=item.saleHistory||[];
+  if(!sh.length){document.getElementById('mSaleSummary').innerHTML='';document.getElementById('mSaleTimeline').innerHTML='<div class="sale-empty">판매 이력이 없습니다.</div>';}
+  else{
+    const sorted=[...sh].sort((a,b)=>b.nth-a.nth);
     let avgCycle='-';
-    if(rs.length>=2){
-      const dates=[...rs].sort((a,b)=>new Date(a.startDate)-new Date(b.startDate)).map(r=>new Date(r.startDate));
-      let gaps=[];
-      for(let i=1;i<dates.length;i++) gaps.push((dates[i]-dates[i-1])/(1000*60*60*24));
-      avgCycle=Math.round(gaps.reduce((a,b)=>a+b,0)/gaps.length)+'일';
-    }
-    document.getElementById('mResaleSummary').innerHTML=`
-      <div class="resale-stat"><div class="resale-stat-val">${rs.length}</div><div class="resale-stat-label">총 재판매 횟수</div></div>
-      <div class="resale-stat"><div class="resale-stat-val" style="font-size:14px;padding-top:2px">${lastDate}</div><div class="resale-stat-label">최근 판매 시작일</div></div>
-      <div class="resale-stat"><div class="resale-stat-val">${avgCycle}</div><div class="resale-stat-label">평균 재판매 주기</div></div>`;
-    const chClass={캐시샵:'ch-cashshop',이벤트:'ch-event',패키지:'ch-package'};
-    document.getElementById('mResaleTimeline').innerHTML=sorted.map(r=>`
-      <div class="timeline-item">
-        <div class="timeline-left"><div class="timeline-dot ${r.nth===1?'first':''}">${r.nth}</div></div>
-        <div class="timeline-right">
-          <div class="timeline-top">
-            <span class="timeline-period">${r.startDate} ~ ${r.endDate}</span>
-            <span class="timeline-channel-badge ${chClass[r.channel]||'ch-cashshop'}">${r.channel}</span>
-          </div>
-          <div class="timeline-meta">
-            <div class="timeline-meta-item"><strong>판매 기간</strong> ${r.durationDays}일</div>
-            ${r.note?`<div class="timeline-meta-item"><strong>비고</strong> ${r.note}</div>`:''}
-          </div>
-        </div>
-      </div>`).join('');
+    if(sh.length>=2){const dates=[...sh].sort((a,b)=>new Date(a.startDate)-new Date(b.startDate)).map(r=>new Date(r.startDate));const gaps=[];for(let i=1;i<dates.length;i++)gaps.push((dates[i]-dates[i-1])/(1000*60*60*24));avgCycle=Math.round(gaps.reduce((a,b)=>a+b,0)/gaps.length)+'일';}
+    document.getElementById('mSaleSummary').innerHTML=`<div class="sale-stat"><div class="sale-stat-val">${sh.length}</div><div class="sale-stat-label">총 판매 횟수</div></div><div class="sale-stat"><div class="sale-stat-val" style="font-size:13px;padding-top:3px">${sorted[0].startDate}</div><div class="sale-stat-label">최근 판매 시작일</div></div><div class="sale-stat"><div class="sale-stat-val">${avgCycle}</div><div class="sale-stat-label">평균 판매 주기</div></div>`;
+    const chMap={캐시샵:'ch-cash',이벤트:'ch-event',패키지:'ch-pkg'};
+    document.getElementById('mSaleTimeline').innerHTML=sorted.map(r=>`<div class="tl-item"><div class="tl-left"><div class="tl-dot ${r.nth===1?'first':''}">${r.nth}</div></div><div class="tl-right"><div class="tl-top"><span class="tl-period">${r.startDate} ~ ${r.endDate}</span><span class="tl-ch ${chMap[r.channel]||'ch-cash'}">${r.channel}</span></div><div class="tl-meta"><div class="tl-meta-item"><strong>기간</strong> ${r.durationDays}일</div>${r.note?`<div class="tl-meta-item"><strong>비고</strong> ${r.note}</div>`:''}</div></div></div>`).join('');
   }
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
-
-function closeModal(e) { if(e.target===document.getElementById('modalOverlay')) closeModalDirect(); }
-function closeModalDirect() { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow=''; }
-
-function exportJSON() {
-  const blob = new Blob([JSON.stringify(ITEMS, null, 2)], {type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'mabinogi_dress_data.json';
-  a.click();
-  showToast('JSON 파일로 내보냈습니다.', 'success');
-}
-
-function showToast(msg, type='') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast show' + (type?' '+type:'');
-  setTimeout(()=>{ t.className='toast'; }, 2500);
-}
-
+function switchImg(src,el){document.getElementById('mImgMain').innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:9px">`;document.querySelectorAll('.m-img-thumb').forEach(t=>t.classList.remove('active'));el.classList.add('active');}
+function closeModal(e){if(e.target===document.getElementById('modalOverlay'))closeModalDirect();}
+function closeModalDirect(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';}
+function exportJSON(){const blob=new Blob([JSON.stringify(ITEMS,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mabinogi_dress_data.json';a.click();showToast('JSON 내보내기 완료','success');}
+function showToast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show'+(type?' '+type:'');setTimeout(()=>{t.className='toast';},2500);}
 init();
 </script>
 </body>
