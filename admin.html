@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DRESS ROOM — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<script src="data.js"></script>
+<style>
+:root{
+  --orange:#FF6B2B;--orange-light:#FF9F1C;--orange-bg:rgba(255,107,43,0.1);
+  --green:#2BBF6B;--green-bg:rgba(43,191,107,0.1);
+  --purple:#7C3AED;--purple-bg:rgba(124,58,237,0.1);
+  --pink:#EC4899;--pink-bg:rgba(236,72,153,0.1);
+  --blue:#3B82F6;--blue-bg:rgba(59,130,246,0.1);
+  --red:#EF4444;--red-bg:rgba(239,68,68,0.1);
+  --bg:#0F1117;--surface:#1A1D27;--surface2:#222637;--surface3:#2C3048;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --text:#F1F2F6;--text-sub:#8B90A7;--text-muted:#555A72;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;}
+
+/* TOPBAR */
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;height:60px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;}
+.topbar-logo{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--text);}
+.topbar-logo span{color:var(--orange);}
+.topbar-badge{background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);font-size:11px;font-weight:700;padding:2px 10px;border-radius:6px;letter-spacing:0.5px;}
+.topbar-actions{margin-left:auto;display:flex;gap:8px;align-items:center;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:0 16px;height:34px;border-radius:8px;font-family:'Noto Sans KR',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.18s;border:1px solid var(--border2);background:var(--surface2);color:var(--text-sub);}
+.btn:hover{border-color:var(--orange);color:var(--orange);}
+.btn.primary{background:var(--orange);border-color:var(--orange);color:#fff;}
+.btn.primary:hover{background:var(--orange-light);}
+.btn.success{background:var(--green-bg);border-color:var(--green);color:var(--green);}
+.btn.success:hover{background:var(--green);color:#fff;}
+.btn.danger{background:var(--red-bg);border-color:var(--red);color:var(--red);}
+.btn.danger:hover{background:var(--red);color:#fff;}
+.btn.purple{background:var(--purple-bg);border-color:var(--purple);color:var(--purple);}
+.btn.purple:hover{background:var(--purple);color:#fff;}
+.btn:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* LAYOUT */
+.page{display:grid;grid-template-columns:320px 1fr;height:calc(100vh - 60px);overflow:hidden;}
+.panel-left{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+.panel-right{overflow-y:auto;padding:28px;}
+.panel-right::-webkit-scrollbar{width:4px;}
+.panel-right::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:4px;}
+
+/* LIST PANEL */
+.list-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+.list-search{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:0 10px;height:32px;flex:1;}
+.list-search:focus-within{border-color:var(--orange);}
+.list-search input{border:none;background:transparent;font-family:inherit;font-size:12px;color:var(--text);outline:none;width:100%;}
+.list-search input::placeholder{color:var(--text-muted);}
+.list-count{font-size:11px;color:var(--text-muted);white-space:nowrap;}
+.list-body{flex:1;overflow-y:auto;}
+.list-body::-webkit-scrollbar{width:3px;}
+.list-body::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:3px;}
+.list-item{padding:10px 20px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.15s;display:flex;align-items:center;gap:10px;}
+.list-item:hover{background:var(--surface2);}
+.list-item.active{background:var(--orange-bg);border-left:3px solid var(--orange);}
+.list-item-icon{width:28px;height:28px;border-radius:6px;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:12px;color:var(--text-muted);flex-shrink:0;}
+.list-item.active .list-item-icon{background:var(--orange-bg);border-color:var(--orange);color:var(--orange);}
+.list-item-info{flex:1;min-width:0;}
+.list-item-name{font-size:12px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.list-item.active .list-item-name{color:var(--orange);}
+.list-item-meta{font-size:10px;color:var(--text-muted);margin-top:2px;}
+.list-item-badge{font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;flex-shrink:0;}
+.badge-onsale{background:var(--green-bg);color:var(--green);}
+.badge-nosale{background:var(--surface2);color:var(--text-muted);}
+.list-add-btn{padding:12px 20px;border-top:1px solid var(--border);}
+
+/* FORM */
+.form-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+.form-title{font-size:18px;font-weight:900;color:var(--text);}
+.form-title span{font-size:13px;font-weight:400;color:var(--text-muted);margin-left:8px;}
+.form-actions{display:flex;gap:8px;}
+
+.section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:16px;}
+.section-title{font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:16px;display:flex;align-items:center;gap:6px;}
+.section-title::before{content:'';width:3px;height:12px;border-radius:2px;background:var(--orange);display:block;}
+.section-title.green::before{background:var(--green);}
+.section-title.blue::before{background:var(--blue);}
+.section-title.purple::before{background:var(--purple);}
+
+.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.form-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.form-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.form-full{grid-column:1/-1;}
+
+.field{display:flex;flex-direction:column;gap:5px;}
+.field label{font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:0.3px;}
+.field input,.field select,.field textarea{
+  background:var(--surface2);border:1px solid var(--border2);border-radius:8px;
+  padding:8px 12px;font-family:'Noto Sans KR',sans-serif;font-size:13px;color:var(--text);
+  outline:none;transition:border-color 0.2s;width:100%;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--orange);}
+.field select option{background:var(--surface2);}
+.field textarea{resize:vertical;min-height:60px;}
+.field input[type="checkbox"]{width:auto;accent-color:var(--orange);}
+.checkbox-row{display:flex;align-items:center;gap:8px;padding:8px 0;}
+.checkbox-row label{font-size:13px;color:var(--text);font-weight:500;cursor:pointer;}
+
+/* DYNAMIC LISTS */
+.dyn-list{display:flex;flex-direction:column;gap:6px;}
+.dyn-row{display:grid;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;}
+.dyn-row.parts-row{grid-template-columns:1fr 80px 32px;}
+.dyn-row.enchant-row{grid-template-columns:1fr 80px 1fr 32px;}
+.dyn-row.resale-row{grid-template-columns:1fr 1fr 80px 100px 1fr 32px;}
+.dyn-row input,.dyn-row select{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-family:'Noto Sans KR',sans-serif;font-size:12px;color:var(--text);outline:none;}
+.dyn-row input:focus,.dyn-row select:focus{border-color:var(--orange);}
+.dyn-row select option{background:var(--surface2);}
+.dyn-add-btn{display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:8px;border:1px dashed var(--border2);background:transparent;font-family:'Noto Sans KR',sans-serif;font-size:12px;color:var(--text-muted);cursor:pointer;transition:all 0.18s;width:100%;margin-top:6px;}
+.dyn-add-btn:hover{border-color:var(--orange);color:var(--orange);}
+.dyn-del-btn{width:28px;height:28px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.18s;flex-shrink:0;font-size:14px;}
+.dyn-del-btn:hover{border-color:var(--red);color:var(--red);background:var(--red-bg);}
+
+.dyn-row-header{display:grid;gap:8px;padding:0 12px 4px;}
+.dyn-row-header.parts-header{grid-template-columns:1fr 80px 32px;}
+.dyn-row-header.enchant-header{grid-template-columns:1fr 80px 1fr 32px;}
+.dyn-row-header.resale-header{grid-template-columns:1fr 1fr 80px 100px 1fr 32px;}
+.dyn-col-label{font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:0.3px;}
+
+/* EMPTY STATE */
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;color:var(--text-muted);}
+.empty-state svg{opacity:0.2;}
+.empty-state p{font-size:14px;}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:12px 18px;font-size:13px;font-weight:600;color:var(--text);box-shadow:0 8px 32px rgba(0,0,0,0.4);z-index:9999;transform:translateY(20px);opacity:0;transition:all 0.3s;pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.success{border-color:var(--green);color:var(--green);}
+.toast.error{border-color:var(--red);color:var(--red);}
+
+/* CONFIRM MODAL */
+.confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.confirm-overlay.open{display:flex;}
+.confirm-box{background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:28px;width:340px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5);animation:slideUp 0.2s ease;}
+@keyframes slideUp{from{transform:translateY(12px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.confirm-title{font-size:16px;font-weight:900;color:var(--text);margin-bottom:8px;}
+.confirm-msg{font-size:13px;color:var(--text-sub);margin-bottom:20px;line-height:1.5;}
+.confirm-actions{display:flex;gap:8px;justify-content:center;}
+
+/* IMPORT SECTION */
+.import-zone{border:2px dashed var(--border2);border-radius:10px;padding:20px;text-align:center;cursor:pointer;transition:all 0.2s;}
+.import-zone:hover,.import-zone.drag{border-color:var(--orange);background:var(--orange-bg);}
+.import-zone p{font-size:13px;color:var(--text-muted);}
+.import-zone p span{color:var(--orange);font-weight:700;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">MABINOGI <span>DRESS</span></div>
+  <div class="topbar-badge">ADMIN PANEL</div>
+  <div class="topbar-actions">
+    <button class="btn" onclick="importJSON()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      JSON 가져오기
+    </button>
+    <button class="btn" onclick="exportJSON()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 10 12 15 7 10"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      JSON 내보내기
+    </button>
+    <button class="btn" onclick="resetToDefault()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-5.49"/></svg>
+      기본값으로 초기화
+    </button>
+    <a href="index.html" class="btn success">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      대시보드로 이동
+    </a>
+  </div>
+</div>
+
+<div class="page">
+  <!-- LEFT: 목록 -->
+  <div class="panel-left">
+    <div class="list-header">
+      <div class="list-search">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="의장 검색..." oninput="filterList(this.value)" id="listSearch"/>
+      </div>
+      <div class="list-count" id="listCount">0종</div>
+    </div>
+    <div class="list-body" id="listBody"></div>
+    <div class="list-add-btn">
+      <button class="btn primary" style="width:100%;justify-content:center" onclick="createNew()">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        새 의장 추가
+      </button>
+    </div>
+  </div>
+
+  <!-- RIGHT: 편집 폼 -->
+  <div class="panel-right" id="panelRight">
+    <div class="empty-state" id="emptyState">
+      <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      <p>왼쪽에서 의장을 선택하거나 새 의장을 추가하세요.</p>
+    </div>
+    <div id="formArea" style="display:none"></div>
+  </div>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-title" id="confirmTitle">확인</div>
+    <div class="confirm-msg" id="confirmMsg">정말 실행하시겠습니까?</div>
+    <div class="confirm-actions">
+      <button class="btn" onclick="document.getElementById('confirmOverlay').classList.remove('open')">취소</button>
+      <button class="btn danger" id="confirmOkBtn" onclick="">확인</button>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="fileInput" accept=".json" style="display:none" onchange="handleFileImport(this)"/>
+<div class="toast" id="toast"></div>
+
+<script>
+let ITEMS = loadItems();
+let selectedId = null;
+let searchQuery = '';
+
+const TYPES = ['의상','모자/가발','신발','뷰티 쿠폰','얼굴 장식 슬롯','무기/악기 외형','스킬 이펙트','정령 현상 변환','로브','날개','서포트 퍼핏/헤일로','꼬리','스타더스트','제스처 카드/액션','의자','펫','대미지'];
+const STYLES = ['큐트','섹시','엘레강스','다크/고딕','판타지','캐주얼','로맨틱','쿨/시크','스포티','유니크'];
+const GENDERS = ['여성','남성','공용'];
+const RACES = ['인간','엘프','자이언트'];
+const CHANNELS = ['캐시샵','이벤트','패키지'];
+
+function renderList() {
+  const q = searchQuery.toLowerCase();
+  const filtered = ITEMS.filter(i => !q || i.name.toLowerCase().includes(q));
+  document.getElementById('listCount').textContent = filtered.length + '종';
+  document.getElementById('listBody').innerHTML = filtered.length ? filtered.map(item => `
+    <div class="list-item ${item.id===selectedId?'active':''}" onclick="selectItem(${item.id})">
+      <div class="list-item-icon">${item.icon||item.name[0]}</div>
+      <div class="list-item-info">
+        <div class="list-item-name">${item.name}</div>
+        <div class="list-item-meta">${item.type} · ${item.gender} · ${item.race}</div>
+      </div>
+      <span class="list-item-badge ${item.onSale?'badge-onsale':'badge-nosale'}">${item.onSale?'판매중':'종료'}</span>
+    </div>`).join('') :
+    '<div style="padding:32px;text-align:center;color:var(--text-muted);font-size:13px">검색 결과 없음</div>';
+}
+
+function filterList(v) {
+  searchQuery = v;
+  renderList();
+}
+
+function selectItem(id) {
+  selectedId = id;
+  renderList();
+  const item = ITEMS.find(i=>i.id===id);
+  if(item) renderForm(item);
+}
+
+function createNew() {
+  const newItem = {
+    id: getNextId(ITEMS),
+    icon: String.fromCharCode(65 + (ITEMS.length % 26)),
+    name: '새 의장',
+    type: '의상',
+    gender: '공용',
+    race: '인간',
+    style: '캐주얼',
+    season: '상시',
+    defense: 0, prot: 0, dur: 100, durMax: 100,
+    parts: [],
+    enchants: [],
+    price: 0, priceMin: 0, priceMax: 0,
+    priceDate: new Date().toISOString().slice(0,10),
+    onSale: false,
+    resale: []
+  };
+  ITEMS.push(newItem);
+  saveItems(ITEMS);
+  selectedId = newItem.id;
+  renderList();
+  renderForm(newItem);
+  showToast('새 의장이 추가되었습니다.', 'success');
+}
+
+function renderForm(item) {
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('formArea').style.display = 'block';
+
+  const typeOpts = TYPES.map(t=>`<option value="${t}" ${item.type===t?'selected':''}>${t}</option>`).join('');
+  const styleOpts = STYLES.map(s=>`<option value="${s}" ${item.style===s?'selected':''}>${s}</option>`).join('');
+  const genderOpts = GENDERS.map(g=>`<option value="${g}" ${item.gender===g?'selected':''}>${g}</option>`).join('');
+  const raceOpts = RACES.map(r=>`<option value="${r}" ${item.race===r?'selected':''}>${r}</option>`).join('');
+
+  document.getElementById('formArea').innerHTML = `
+    <div class="form-header">
+      <div>
+        <div class="form-title">의장 편집 <span>ID: ${item.id}</span></div>
+      </div>
+      <div class="form-actions">
+        <button class="btn danger" onclick="confirmDelete(${item.id})">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          삭제
+        </button>
+        <button class="btn primary" onclick="saveForm(${item.id})">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          저장
+        </button>
+      </div>
+    </div>
+
+    <!-- 기본 정보 -->
+    <div class="section">
+      <div class="section-title">기본 정보</div>
+      <div class="form-grid">
+        <div class="field form-full">
+          <label>의장명</label>
+          <input type="text" id="f_name" value="${escHtml(item.name)}" placeholder="의장 이름 입력"/>
+        </div>
+        <div class="field">
+          <label>아이콘 (1~2글자)</label>
+          <input type="text" id="f_icon" value="${escHtml(item.icon||'')}" maxlength="2" placeholder="A"/>
+        </div>
+        <div class="field">
+          <label>종류</label>
+          <select id="f_type">${typeOpts}</select>
+        </div>
+        <div class="field">
+          <label>시즌</label>
+          <select id="f_season">
+            <option value="상시" ${item.season==='상시'?'selected':''}>상시</option>
+            <option value="기간한정" ${item.season==='기간한정'?'selected':''}>기간한정</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>성별</label>
+          <select id="f_gender">${genderOpts}</select>
+        </div>
+        <div class="field">
+          <label>종족</label>
+          <select id="f_race">${raceOpts}</select>
+        </div>
+        <div class="field">
+          <label>스타일</label>
+          <select id="f_style">${styleOpts}</select>
+        </div>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="f_onSale" ${item.onSale?'checked':''}/>
+        <label for="f_onSale">현재 판매중</label>
+      </div>
+    </div>
+
+    <!-- 스탯 -->
+    <div class="section">
+      <div class="section-title">스탯 정보</div>
+      <div class="form-grid-4">
+        <div class="field"><label>방어력</label><input type="number" id="f_defense" value="${item.defense}" min="0"/></div>
+        <div class="field"><label>보호</label><input type="number" id="f_prot" value="${item.prot}" min="0"/></div>
+        <div class="field"><label>내구도</label><input type="number" id="f_dur" value="${item.dur}" min="0"/></div>
+        <div class="field"><label>최대 내구도</label><input type="number" id="f_durMax" value="${item.durMax}" min="0"/></div>
+      </div>
+    </div>
+
+    <!-- 시세 -->
+    <div class="section">
+      <div class="section-title">경매장 시세</div>
+      <div class="form-grid-4">
+        <div class="field"><label>현재 시세 (G)</label><input type="number" id="f_price" value="${item.price}" min="0"/></div>
+        <div class="field"><label>최저 시세 (G)</label><input type="number" id="f_priceMin" value="${item.priceMin}" min="0"/></div>
+        <div class="field"><label>최고 시세 (G)</label><input type="number" id="f_priceMax" value="${item.priceMax}" min="0"/></div>
+        <div class="field"><label>기준일</label><input type="date" id="f_priceDate" value="${item.priceDate}"/></div>
+      </div>
+    </div>
+
+    <!-- 파츠 -->
+    <div class="section">
+      <div class="section-title green">구성 파츠</div>
+      <div class="dyn-row-header parts-header">
+        <div class="dyn-col-label">파츠 이름</div>
+        <div class="dyn-col-label">수량</div>
+        <div></div>
+      </div>
+      <div class="dyn-list" id="partsList">
+        ${(item.parts||[]).map((p,i)=>renderPartRow(p,i)).join('')}
+      </div>
+      <button class="dyn-add-btn" onclick="addPart()">+ 파츠 추가</button>
+    </div>
+
+    <!-- 인챈트 -->
+    <div class="section">
+      <div class="section-title green">인챈트 정보</div>
+      <div class="dyn-row-header enchant-header">
+        <div class="dyn-col-label">인챈트명</div>
+        <div class="dyn-col-label">슬롯</div>
+        <div class="dyn-col-label">효과</div>
+        <div></div>
+      </div>
+      <div class="dyn-list" id="enchantList">
+        ${(item.enchants||[]).map((e,i)=>renderEnchantRow(e,i)).join('')}
+      </div>
+      <button class="dyn-add-btn" onclick="addEnchant()">+ 인챈트 추가</button>
+    </div>
+
+    <!-- 재판매 이력 -->
+    <div class="section">
+      <div class="section-title blue">재판매 이력</div>
+      <div class="dyn-row-header resale-header">
+        <div class="dyn-col-label">시작일</div>
+        <div class="dyn-col-label">종료일</div>
+        <div class="dyn-col-label">기간(일)</div>
+        <div class="dyn-col-label">판매 채널</div>
+        <div class="dyn-col-label">비고</div>
+        <div></div>
+      </div>
+      <div class="dyn-list" id="resaleList">
+        ${[...(item.resale||[])].sort((a,b)=>b.nth-a.nth).map((r,i)=>renderResaleRow(r,i)).join('')}
+      </div>
+      <button class="dyn-add-btn" onclick="addResale()">+ 재판매 이력 추가</button>
+    </div>
+  `;
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function renderPartRow(p, i) {
+  return `<div class="dyn-row parts-row" id="part_${i}">
+    <input type="text" placeholder="파츠 이름" value="${escHtml(p.name)}" onchange="updatePart(${i},'name',this.value)"/>
+    <input type="number" placeholder="수량" value="${p.count}" min="1" onchange="updatePart(${i},'count',+this.value)"/>
+    <button class="dyn-del-btn" onclick="delPart(${i})">✕</button>
+  </div>`;
+}
+
+function renderEnchantRow(e, i) {
+  return `<div class="dyn-row enchant-row" id="enchant_${i}">
+    <input type="text" placeholder="인챈트명" value="${escHtml(e.name)}" onchange="updateEnchant(${i},'name',this.value)"/>
+    <select onchange="updateEnchant(${i},'slot',this.value)">
+      <option value="접두" ${e.slot==='접두'?'selected':''}>접두</option>
+      <option value="접미" ${e.slot==='접미'?'selected':''}>접미</option>
+    </select>
+    <input type="text" placeholder="효과 설명" value="${escHtml(e.effect)}" onchange="updateEnchant(${i},'effect',this.value)"/>
+    <button class="dyn-del-btn" onclick="delEnchant(${i})">✕</button>
+  </div>`;
+}
+
+function renderResaleRow(r, i) {
+  const chOpts = CHANNELS.map(c=>`<option value="${c}" ${r.channel===c?'selected':''}>${c}</option>`).join('');
+  return `<div class="dyn-row resale-row" id="resale_${i}">
+    <input type="date" value="${r.startDate}" onchange="updateResale(${i},'startDate',this.value);autoCalcDays(${i})"/>
+    <input type="date" value="${r.endDate}" onchange="updateResale(${i},'endDate',this.value);autoCalcDays(${i})"/>
+    <input type="number" id="resale_days_${i}" value="${r.durationDays}" min="1" onchange="updateResale(${i},'durationDays',+this.value)"/>
+    <select onchange="updateResale(${i},'channel',this.value)">${chOpts}</select>
+    <input type="text" placeholder="비고" value="${escHtml(r.note||'')}" onchange="updateResale(${i},'note',this.value)"/>
+    <button class="dyn-del-btn" onclick="delResale(${i})">✕</button>
+  </div>`;
+}
+
+// 임시 편집 버퍼 (저장 버튼 누를 때 수집)
+let _parts = [];
+let _enchants = [];
+let _resale = [];
+
+function initBuffers(item) {
+  _parts = JSON.parse(JSON.stringify(item.parts||[]));
+  _enchants = JSON.parse(JSON.stringify(item.enchants||[]));
+  _resale = JSON.parse(JSON.stringify(item.resale||[]));
+}
+
+function addPart() {
+  const item = ITEMS.find(i=>i.id===selectedId);
+  if(!item) return;
+  item.parts = item.parts||[];
+  item.parts.push({name:'',count:1});
+  renderForm(item);
+}
+function updatePart(i,k,v){ const item=ITEMS.find(x=>x.id===selectedId); if(item&&item.parts[i]) item.parts[i][k]=v; }
+function delPart(i){ const item=ITEMS.find(x=>x.id===selectedId); if(item){ item.parts.splice(i,1); renderForm(item); } }
+
+function addEnchant() {
+  const item = ITEMS.find(i=>i.id===selectedId);
+  if(!item) return;
+  item.enchants = item.enchants||[];
+  item.enchants.push({name:'',slot:'접두',effect:''});
+  renderForm(item);
+}
+function updateEnchant(i,k,v){ const item=ITEMS.find(x=>x.id===selectedId); if(item&&item.enchants[i]) item.enchants[i][k]=v; }
+function delEnchant(i){ const item=ITEMS.find(x=>x.id===selectedId); if(item){ item.enchants.splice(i,1); renderForm(item); } }
+
+function addResale() {
+  const item = ITEMS.find(i=>i.id===selectedId);
+  if(!item) return;
+  item.resale = item.resale||[];
+  const nth = item.resale.length > 0 ? Math.max(...item.resale.map(r=>r.nth)) + 1 : 1;
+  item.resale.push({nth, startDate:'', endDate:'', durationDays:14, channel:'캐시샵', note:''});
+  renderForm(item);
+}
+function updateResale(i,k,v) {
+  const item = ITEMS.find(x=>x.id===selectedId);
+  if(!item) return;
+  const sorted = [...item.resale].sort((a,b)=>b.nth-a.nth);
+  if(sorted[i]) sorted[i][k]=v;
+  item.resale = sorted;
+}
+function delResale(i) {
+  const item = ITEMS.find(x=>x.id===selectedId);
+  if(!item) return;
+  const sorted = [...item.resale].sort((a,b)=>b.nth-a.nth);
+  sorted.splice(i,1);
+  // nth 재정렬
+  sorted.sort((a,b)=>new Date(a.startDate)-new Date(b.startDate)).forEach((r,idx)=>r.nth=idx+1);
+  item.resale = sorted;
+  renderForm(item);
+}
+function autoCalcDays(i) {
+  const item = ITEMS.find(x=>x.id===selectedId);
+  if(!item) return;
+  const sorted = [...item.resale].sort((a,b)=>b.nth-a.nth);
+  const r = sorted[i];
+  if(r && r.startDate && r.endDate) {
+    const diff = Math.round((new Date(r.endDate)-new Date(r.startDate))/(1000*60*60*24));
+    if(diff>0) {
+      r.durationDays = diff;
+      const el = document.getElementById('resale_days_'+i);
+      if(el) el.value = diff;
+    }
+  }
+}
+
+function saveForm(id) {
+  const item = ITEMS.find(i=>i.id===id);
+  if(!item) return;
+  item.name     = document.getElementById('f_name').value.trim() || '(이름 없음)';
+  item.icon     = document.getElementById('f_icon').value.trim() || item.name[0];
+  item.type     = document.getElementById('f_type').value;
+  item.season   = document.getElementById('f_season').value;
+  item.gender   = document.getElementById('f_gender').value;
+  item.race     = document.getElementById('f_race').value;
+  item.style    = document.getElementById('f_style').value;
+  item.onSale   = document.getElementById('f_onSale').checked;
+  item.defense  = +document.getElementById('f_defense').value||0;
+  item.prot     = +document.getElementById('f_prot').value||0;
+  item.dur      = +document.getElementById('f_dur').value||0;
+  item.durMax   = +document.getElementById('f_durMax').value||0;
+  item.price    = +document.getElementById('f_price').value||0;
+  item.priceMin = +document.getElementById('f_priceMin').value||0;
+  item.priceMax = +document.getElementById('f_priceMax').value||0;
+  item.priceDate= document.getElementById('f_priceDate').value;
+  saveItems(ITEMS);
+  renderList();
+  showToast(`"${item.name}" 저장 완료!`, 'success');
+}
+
+function confirmDelete(id) {
+  const item = ITEMS.find(i=>i.id===id);
+  if(!item) return;
+  document.getElementById('confirmTitle').textContent = '의장 삭제';
+  document.getElementById('confirmMsg').textContent = `"${item.name}"을(를) 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.`;
+  document.getElementById('confirmOkBtn').onclick = () => deleteItem(id);
+  document.getElementById('confirmOverlay').classList.add('open');
+}
+
+function deleteItem(id) {
+  document.getElementById('confirmOverlay').classList.remove('open');
+  ITEMS = ITEMS.filter(i=>i.id!==id);
+  saveItems(ITEMS);
+  selectedId = null;
+  document.getElementById('emptyState').style.display='';
+  document.getElementById('formArea').style.display='none';
+  renderList();
+  showToast('삭제되었습니다.', 'success');
+}
+
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(ITEMS, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'mabinogi_dress_data.json';
+  a.click();
+  showToast('JSON 파일로 내보냈습니다.', 'success');
+}
+
+function importJSON() {
+  document.getElementById('fileInput').click();
+}
+
+function handleFileImport(input) {
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if(!Array.isArray(data)) throw new Error('배열 형식이 아닙니다');
+      document.getElementById('confirmTitle').textContent = 'JSON 가져오기';
+      document.getElementById('confirmMsg').innerHTML = `총 <strong>${data.length}개</strong> 의장 데이터를 가져옵니다.<br>현재 데이터는 <strong>덮어씌워집니다</strong>.`;
+      document.getElementById('confirmOkBtn').onclick = () => {
+        ITEMS = data;
+        saveItems(ITEMS);
+        selectedId = null;
+        document.getElementById('emptyState').style.display='';
+        document.getElementById('formArea').style.display='none';
+        renderList();
+        document.getElementById('confirmOverlay').classList.remove('open');
+        showToast(`${data.length}개 의장 데이터를 가져왔습니다.`, 'success');
+      };
+      document.getElementById('confirmOverlay').classList.add('open');
+    } catch(err) {
+      showToast('JSON 파싱 오류: ' + err.message, 'error');
+    }
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
+function resetToDefault() {
+  document.getElementById('confirmTitle').textContent = '기본값으로 초기화';
+  document.getElementById('confirmMsg').innerHTML = '모든 데이터가 <strong>초기 샘플 데이터</strong>로 되돌아갑니다.<br>현재 저장된 데이터는 사라집니다.';
+  document.getElementById('confirmOkBtn').onclick = () => {
+    localStorage.removeItem('mabinogi_dress_items');
+    ITEMS = loadItems();
+    saveItems(ITEMS);
+    selectedId = null;
+    document.getElementById('emptyState').style.display='';
+    document.getElementById('formArea').style.display='none';
+    renderList();
+    document.getElementById('confirmOverlay').classList.remove('open');
+    showToast('기본 데이터로 초기화했습니다.', 'success');
+  };
+  document.getElementById('confirmOverlay').classList.add('open');
+}
+
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type?' '+type:'');
+  setTimeout(()=>{ t.className='toast'; }, 2500);
+}
+
+document.getElementById('confirmOverlay').addEventListener('click', e => {
+  if(e.target===document.getElementById('confirmOverlay'))
+    document.getElementById('confirmOverlay').classList.remove('open');
+});
+
+renderList();
+</script>
+</body>
+</html>
