@@ -149,13 +149,13 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Noto S
 .dyn-header{display:grid;gap:8px;padding:0 10px 6px;}
 .dyn-header.color-h{grid-template-columns:1fr 90px 32px;}
 .dyn-header.enchant-h{grid-template-columns:1fr 80px 1fr 32px;}
-.dyn-header.sale-h{grid-template-columns:1fr 1fr 70px 100px 1fr 32px;}
+.dyn-header.sale-h{grid-template-columns:1fr 1fr 60px 90px 90px 70px 1fr 32px;}
 .dyn-col{font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:0.3px;}
 .dyn-list{display:flex;flex-direction:column;gap:5px;}
 .dyn-row{display:grid;gap:8px;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;}
 .dyn-row.color-r{grid-template-columns:1fr 90px 32px;}
 .dyn-row.enchant-r{grid-template-columns:1fr 80px 1fr 32px;}
-.dyn-row.sale-r{grid-template-columns:1fr 1fr 70px 100px 1fr 32px;}
+.dyn-row.sale-r{grid-template-columns:1fr 1fr 60px 90px 90px 70px 1fr 32px;}
 .dyn-row input,.dyn-row select{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-family:'Noto Sans KR',sans-serif;font-size:12px;color:var(--text);outline:none;width:100%;}
 .dyn-row input:focus,.dyn-row select:focus{border-color:var(--orange);}
 .dyn-row select option{background:var(--surface2);}
@@ -500,13 +500,14 @@ function renderForm(item) {
     </div>
   </div>
 
-  <!-- 판매 이력 -->
   <div class="section">
     <div class="section-title blue">판매 이력</div>
     <div class="dyn-header sale-h">
       <div class="dyn-col">시작일</div>
       <div class="dyn-col">종료일</div>
       <div class="dyn-col">기간(일)</div>
+      <div class="dyn-col">판매가(원)</div>
+      <div class="dyn-col">등장확률(%)</div>
       <div class="dyn-col">판매 채널</div>
       <div class="dyn-col">비고</div>
       <div></div>
@@ -551,6 +552,10 @@ function renderSaleRow(r, i) {
       onchange="updateSale(${i},'endDate',this.value);autoCalcDays(${i})"/>
     <input type="number" id="sale_days_${i}" value="${r.durationDays}" min="1"
       oninput="updateSale(${i},'durationDays',+this.value)"/>
+    <input type="number" placeholder="판매가" value="${r.salePrice||''}" min="0"
+      oninput="updateSale(${i},'salePrice',+this.value)"/>
+    <input type="number" placeholder="확률 %" value="${r.dropRate||''}" min="0" max="100" step="0.01"
+      oninput="updateSale(${i},'dropRate',parseFloat(this.value))"/>
     <select onchange="updateSale(${i},'channel',this.value)">${chOpts}</select>
     <input type="text" placeholder="비고" value="${escHtml(r.note||'')}"
       oninput="updateSale(${i},'note',this.value)"/>
@@ -674,7 +679,7 @@ function addSaleHistory() {
   if(!item) return;
   item.saleHistory=item.saleHistory||[];
   const nth=item.saleHistory.length>0?Math.max(...item.saleHistory.map(r=>r.nth))+1:1;
-  item.saleHistory.push({nth,startDate:'',endDate:'',durationDays:14,channel:'캐시샵',note:''});
+  item.saleHistory.push({nth,startDate:'',endDate:'',durationDays:14,salePrice:0,dropRate:null,channel:'캐시샵',note:''});
   const sorted=[...item.saleHistory].sort((a,b)=>b.nth-a.nth);
   const i=0; // 새 항목은 정렬 후 맨 위
   const list=document.getElementById('saleList');

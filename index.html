@@ -14,6 +14,7 @@
   --pink:#EC4899;--pink-bg:rgba(236,72,153,0.1);
   --blue:#3B82F6;--blue-bg:rgba(59,130,246,0.1);
   --yellow:#F59E0B;--yellow-bg:rgba(245,158,11,0.1);
+  --red:#EF4444;--red-bg:rgba(239,68,68,0.1);
   --bg:#0F1117;--surface:#1A1D27;--surface2:#222637;--surface3:#2C3048;
   --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
   --text:#F1F2F6;--text-sub:#8B90A7;--text-muted:#555A72;
@@ -297,21 +298,61 @@ td{padding:9px 14px;font-size:13px;white-space:nowrap;}
 
   <div class="content">
     <div class="stats-row" id="statsRow"></div>
-    <div class="mid-row">
-      <div class="chart-card">
+    <div id="dashboardSection">
+      <!-- 상단 2열: 판매 공백 + 재판매 주기 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <!-- 판매 검토 필요 의장 -->
+        <div class="chart-card">
+          <div class="card-hd">
+            <div>
+              <div class="card-title">판매 검토 필요 의장</div>
+              <div class="card-sub">미판매 또는 마지막 판매 후 180일 초과</div>
+            </div>
+          </div>
+          <div id="noSaleList" style="display:flex;flex-direction:column;gap:5px;margin-top:4px;max-height:200px;overflow-y:auto"></div>
+        </div>
+        <!-- 재판매 주기 분석 -->
+        <div class="chart-card">
+          <div class="card-hd">
+            <div>
+              <div class="card-title">재판매 주기 분석</div>
+              <div class="card-sub">평균 판매 주기 기준 — 다음 판매 타이밍 예측</div>
+            </div>
+          </div>
+          <div id="cycleList" style="display:flex;flex-direction:column;gap:5px;margin-top:4px;max-height:200px;overflow-y:auto"></div>
+        </div>
+      </div>
+      <!-- 재출시 후보 -->
+      <div class="chart-card" style="margin-bottom:12px">
         <div class="card-hd">
-          <div><div class="card-title">카테고리별 의장 수</div><div class="card-sub">종류 기준 등록 현황</div></div>
-          <div class="legend">
-            <div class="leg-item"><div class="leg-dot" style="background:var(--orange)"></div>등록수</div>
-            <div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div>판매중</div>
+          <div>
+            <div class="card-title">재출시 후보 의장</div>
+            <div class="card-sub">판매 이력 있음 + 현재 미판매 — 과거 인기 기반 재출시 검토</div>
           </div>
         </div>
-        <div class="bar-chart" id="barChart"></div>
-        <div class="bar-labels" id="barLabels"></div>
+        <div id="relaunchList" style="display:flex;flex-direction:column;gap:5px;margin-top:4px"></div>
       </div>
-      <div class="style-wrap">
-        <div class="card-hd"><div><div class="card-title">스타일 분포</div><div class="card-sub">등록 의장 기준</div></div></div>
-        <div class="style-list" id="styleList"></div>
+      <!-- 하단 3열: 수요 분포 -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px">
+        <div class="chart-card">
+          <div class="card-hd"><div><div class="card-title">스타일별 판매 비중</div><div class="card-sub">판매 이력 보유 의장 기준</div></div></div>
+          <div id="distStyle" style="display:flex;flex-direction:column;gap:5px;margin-top:4px"></div>
+        </div>
+        <div class="chart-card">
+          <div class="card-hd"><div><div class="card-title">성별별 판매 비중</div><div class="card-sub">판매 이력 보유 의장 기준</div></div></div>
+          <div id="distGender" style="display:flex;flex-direction:column;gap:5px;margin-top:4px"></div>
+        </div>
+        <div class="chart-card">
+          <div class="card-hd"><div><div class="card-title">종족별 판매 비중</div><div class="card-sub">판매 이력 보유 의장 기준</div></div></div>
+          <div id="distRace" style="display:flex;flex-direction:column;gap:5px;margin-top:4px"></div>
+        </div>
+      </div>
+      <!-- 시즌별 판매 집중도 -->
+      <div class="chart-card" style="margin-bottom:0">
+        <div class="card-hd">
+          <div><div class="card-title">시즌별 판매 집중도</div><div class="card-sub">시즌 태그별 누적 판매 이력 합산</div></div>
+        </div>
+        <div id="seasonDist" style="display:flex;flex-direction:column;gap:6px;margin-top:4px"></div>
       </div>
     </div>
 
@@ -431,6 +472,9 @@ function init() {
   renderStats();
   renderCharts();
   renderTable();
+  // 초기 상태: 대시보드 뷰 표시, 테이블 숨김
+  document.getElementById('dashboardSection').style.display = '';
+  document.querySelector('.bottom-sec').style.display = 'none';
 }
 
 function renderDynamicFilters() {
@@ -498,25 +542,139 @@ function renderStats(){
 }
 
 function renderCharts(){
-  const cats=[...new Set(ITEMS.map(i=>i.type))];
-  const colors=['#FF6B2B','#2BBF6B','#7C3AED','#EC4899','#3B82F6','#F59E0B','#06B6D4','#10B981','#F97316','#8B5CF6'];
-  const maxC=Math.max(1,...cats.map(c=>ITEMS.filter(x=>x.type===c).length));
-  document.getElementById('barChart').innerHTML=cats.map((cat,i)=>{
-    const total=ITEMS.filter(x=>x.type===cat).length;
-    const sale=ITEMS.filter(x=>x.type===cat&&x.onSale).length;
-    const h1=Math.max(6,(total/maxC)*90),h2=Math.max(3,(sale/maxC)*90);
-    const col=colors[i%colors.length];
-    return`<div class="bar-wrap"><div class="bar-group" style="height:90px"><div class="bar" style="height:${h1}px;background:${col};opacity:.65" title="${cat}: ${total}종"></div><div class="bar" style="height:${h2}px;background:${col}" title="판매중: ${sale}종"></div></div></div>`;
-  }).join('');
-  document.getElementById('barLabels').innerHTML=cats.map(cat=>`<div class="bar-lbl">${cat.length>4?cat.substring(0,4)+'..':cat}</div>`).join('');
-  const allSU=[...new Set(ITEMS.flatMap(i=>i.style||[]))];
-  const sc=['#3B82F6','#EC4899','#F59E0B','#7C3AED','#2BBF6B','#FF6B2B','#06B6D4','#8B5CF6','#10B981','#F97316'];
-  const maxS=Math.max(1,...allSU.map(s=>ITEMS.filter(x=>(x.style||[]).includes(s)).length));
-  document.getElementById('styleList').innerHTML=allSU.map((s,i)=>{
-    const cnt=ITEMS.filter(x=>(x.style||[]).includes(s)).length;
-    if(!cnt) return '';
-    return`<div class="style-row"><div class="style-dot" style="background:${sc[i%sc.length]}"></div><div class="style-name">${s}</div><div class="style-bar-bg"><div class="style-bar-fill" style="width:${(cnt/maxS)*100}%;background:${sc[i%sc.length]}"></div></div><div class="style-cnt">${cnt}</div></div>`;
-  }).filter(Boolean).join('');
+  const COLORS=['#FF6B2B','#3B82F6','#2BBF6B','#EC4899','#7C3AED','#F59E0B','#06B6D4','#10B981','#F97316','#8B5CF6'];
+  const today=new Date();
+
+  // ── 공통 바 렌더러 ──────────────────────────────
+  function distBar(elId, entries){
+    const max=Math.max(1,...entries.map(e=>e.v));
+    document.getElementById(elId).innerHTML=entries.length
+      ? entries.map((e,i)=>`
+        <div style="display:flex;align-items:center;gap:7px;">
+          <div style="font-size:11px;color:var(--text-sub);width:60px;text-align:right;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${e.k}">${e.k}</div>
+          <div style="flex:1;background:var(--surface2);border-radius:3px;height:6px;overflow:hidden">
+            <div style="width:${(e.v/max)*100}%;height:100%;background:${COLORS[i%COLORS.length]};border-radius:3px"></div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:var(--text);min-width:22px">${e.v}</div>
+        </div>`).join('')
+      : '<div style="color:var(--text-muted);font-size:12px;padding:8px 0">데이터 없음</div>';
+  }
+
+  // ── ① 판매 검토 필요 의장 ──────────────────────
+  // 미판매 or 마지막 판매로부터 180일 초과
+  const reviewItems = ITEMS.filter(i=>{
+    if(i.onSale) return false;
+    const sh = i.saleHistory||[];
+    if(!sh.length) return true; // 한 번도 안 팔린 것
+    const lastDate = new Date(Math.max(...sh.map(r=>new Date(r.startDate||0))));
+    const daysSince = Math.floor((today-lastDate)/(1000*60*60*24));
+    return daysSince>180;
+  }).sort((a,b)=>{
+    // 한 번도 안 팔린 것 우선, 그 다음은 마지막 판매일 오래된 순
+    const aLast=(a.saleHistory||[]).length ? new Date(Math.max(...a.saleHistory.map(r=>new Date(r.startDate||0)))) : new Date(0);
+    const bLast=(b.saleHistory||[]).length ? new Date(Math.max(...b.saleHistory.map(r=>new Date(r.startDate||0)))) : new Date(0);
+    return aLast-bLast;
+  });
+
+  document.getElementById('noSaleList').innerHTML = reviewItems.length
+    ? reviewItems.map(item=>{
+        const sh=item.saleHistory||[];
+        const lastDate=sh.length ? new Date(Math.max(...sh.map(r=>new Date(r.startDate||0)))) : null;
+        const daysSince=lastDate ? Math.floor((today-lastDate)/(1000*60*60*24)) : null;
+        const badge=!sh.length
+          ? `<span style="font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;background:var(--red-bg);color:var(--red)">미판매</span>`
+          : `<span style="font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;background:var(--yellow-bg);color:var(--yellow)">${daysSince}일 경과</span>`;
+        return`<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--surface2);border-radius:7px;border:1px solid var(--border)">
+          <div style="font-size:12px;font-weight:700;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${item.name}</div>
+          <div style="font-size:10px;color:var(--text-muted);flex-shrink:0">${item.type}</div>
+          ${badge}
+        </div>`;
+      }).join('')
+    : '<div style="color:var(--text-muted);font-size:12px;padding:8px 0">검토 필요 의장 없음</div>';
+
+  // ── ② 재판매 주기 분석 ──────────────────────────
+  // 판매 이력 2회 이상인 의장만 (주기 계산 가능)
+  const cycleItems = ITEMS
+    .filter(i=>(i.saleHistory||[]).length>=2)
+    .map(i=>{
+      const dates=[...i.saleHistory]
+        .filter(r=>r.startDate)
+        .sort((a,b)=>new Date(a.startDate)-new Date(b.startDate))
+        .map(r=>new Date(r.startDate));
+      const gaps=[];
+      for(let j=1;j<dates.length;j++) gaps.push(Math.floor((dates[j]-dates[j-1])/(1000*60*60*24)));
+      const avgGap=Math.round(gaps.reduce((a,b)=>a+b,0)/gaps.length);
+      const lastDate=dates[dates.length-1];
+      const daysSinceLast=Math.floor((today-lastDate)/(1000*60*60*24));
+      const nextExpected=avgGap-daysSinceLast;
+      return{item:i, avgGap, daysSinceLast, nextExpected, cnt:i.saleHistory.length};
+    })
+    .sort((a,b)=>a.nextExpected-b.nextExpected); // 임박한 것 위로
+
+  document.getElementById('cycleList').innerHTML = cycleItems.length
+    ? cycleItems.map(({item,avgGap,daysSinceLast,nextExpected,cnt})=>{
+        const isImminent=nextExpected<=14&&nextExpected>=0;
+        const isPast=nextExpected<0;
+        const statusColor=isPast?'var(--red)':isImminent?'var(--yellow)':'var(--text-muted)';
+        const statusText=isPast?`${Math.abs(nextExpected)}일 지남`:isImminent?`${nextExpected}일 후 예상`:`약 ${nextExpected}일 후`;
+        return`<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--surface2);border-radius:7px;border:1px solid ${isPast?'rgba(239,68,68,0.3)':isImminent?'rgba(245,158,11,0.3)':'var(--border)'}">
+          <div style="font-size:12px;font-weight:700;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${item.name}</div>
+          <div style="font-size:10px;color:var(--text-muted);flex-shrink:0">주기 ${avgGap}일</div>
+          <div style="font-size:10px;font-weight:700;color:${statusColor};flex-shrink:0">${statusText}</div>
+        </div>`;
+      }).join('')
+    : '<div style="color:var(--text-muted);font-size:12px;padding:8px 0">판매 이력 2회 이상 의장 없음</div>';
+
+  // ── ③ 재출시 후보 의장 ──────────────────────────
+  // 판매 이력 있음 + 현재 미판매 → 판매 횟수 많은 순
+  const relaunch = ITEMS
+    .filter(i=>!i.onSale && (i.saleHistory||[]).length>0)
+    .sort((a,b)=>(b.saleHistory||[]).length-(a.saleHistory||[]).length)
+    .slice(0,8);
+
+  document.getElementById('relaunchList').innerHTML = relaunch.length
+    ? `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px">`
+      + relaunch.map((item,i)=>{
+          const cnt=(item.saleHistory||[]).length;
+          const sh=[...item.saleHistory].sort((a,b)=>new Date(b.startDate)-new Date(a.startDate));
+          const lastDate=sh[0]?.startDate||'-';
+          const styles=(item.style||[]).slice(0,2).map(s=>`<span style="font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px;background:var(--pink-bg);color:var(--pink)">${s}</span>`).join('');
+          return`<div style="background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:10px 12px;cursor:pointer;transition:border-color .15s" onclick="openModal(${item.id})" onmouseenter="this.style.borderColor='var(--orange)'" onmouseleave="this.style.borderColor='var(--border)'">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
+              <div style="font-size:12px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1">${item.name}</div>
+              <div style="font-size:13px;font-weight:900;color:var(--blue);margin-left:8px;flex-shrink:0">${cnt}회</div>
+            </div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px">
+              <span style="font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px;background:var(--orange-bg);color:var(--orange)">${item.type}</span>
+              ${styles}
+            </div>
+            <div style="font-size:10px;color:var(--text-muted)">마지막 판매: ${lastDate}</div>
+          </div>`;
+        }).join('')
+      + '</div>'
+    : '<div style="color:var(--text-muted);font-size:12px;padding:8px 0">재출시 후보 의장 없음</div>';
+
+  // ── ④ 수요 분포 ─────────────────────────────────
+  const sold=ITEMS.filter(i=>(i.saleHistory||[]).length>0);
+  const allStyles=[...new Set(sold.flatMap(i=>i.style||[]))];
+  distBar('distStyle', allStyles.map(s=>({k:s, v:sold.filter(i=>(i.style||[]).includes(s)).length})).sort((a,b)=>b.v-a.v).slice(0,6));
+  distBar('distGender', ['여성','남성','공용'].map(g=>({k:g, v:sold.filter(i=>i.gender===g).length})).filter(e=>e.v>0));
+  distBar('distRace', ['인간','엘프','자이언트'].map(r=>({k:r, v:sold.filter(i=>i.race===r).length})).filter(e=>e.v>0));
+
+  // ── ⑤ 시즌별 판매 집중도 ────────────────────────
+  const seasons=[...new Set(ITEMS.map(i=>i.season))];
+  const seasonData=seasons.map(s=>({k:s,v:ITEMS.filter(i=>i.season===s).reduce((acc,i)=>acc+(i.saleHistory||[]).length,0)})).filter(e=>e.v>0).sort((a,b)=>b.v-a.v);
+  const maxSeason=Math.max(1,...seasonData.map(e=>e.v));
+  document.getElementById('seasonDist').innerHTML=seasonData.length
+    ? seasonData.map((e,i)=>`
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="font-size:12px;font-weight:600;width:70px;flex-shrink:0">${e.k}</div>
+        <div style="flex:1;background:var(--surface2);border-radius:3px;height:8px;overflow:hidden">
+          <div style="width:${(e.v/maxSeason)*100}%;height:100%;background:${COLORS[i%COLORS.length]};border-radius:3px"></div>
+        </div>
+        <div style="font-size:12px;font-weight:700;min-width:36px;text-align:right">${e.v}회</div>
+      </div>`).join('')
+    : '<div style="color:var(--text-muted);font-size:12px">데이터 없음</div>';
 }
 
 function renderTable(onSaleOnly){
@@ -552,6 +710,9 @@ function setPage(page,btn){
   btn.classList.add('active');
   const titles={dashboard:'대시보드 <span>전체 현황 한눈에 보기</span>',items:'의장 전체보기 <span>등록된 모든 의장 목록</span>',onsale:'현재 판매중 <span>캐시샵 판매 의장</span>',resale:'판매 이력 <span>과거 판매 기록 분석</span>',price:'경매장 시세 <span>최신 시세 정보</span>'};
   document.getElementById('topbarTitle').innerHTML=titles[page]||titles['dashboard'];
+  const isDash=page==='dashboard';
+  document.getElementById('dashboardSection').style.display=isDash?'':'none';
+  document.querySelector('.bottom-sec').style.display=isDash?'none':'';
   renderTable(page==='onsale');
 }
 
@@ -583,7 +744,11 @@ function openModal(id){
     if(sh.length>=2){const dates=[...sh].sort((a,b)=>new Date(a.startDate)-new Date(b.startDate)).map(r=>new Date(r.startDate));const gaps=[];for(let i=1;i<dates.length;i++)gaps.push((dates[i]-dates[i-1])/(1000*60*60*24));avgCycle=Math.round(gaps.reduce((a,b)=>a+b,0)/gaps.length)+'일';}
     document.getElementById('mSaleSummary').innerHTML=`<div class="sale-stat"><div class="sale-stat-val">${sh.length}</div><div class="sale-stat-label">총 판매 횟수</div></div><div class="sale-stat"><div class="sale-stat-val" style="font-size:13px;padding-top:3px">${sorted[0].startDate}</div><div class="sale-stat-label">최근 판매 시작일</div></div><div class="sale-stat"><div class="sale-stat-val">${avgCycle}</div><div class="sale-stat-label">평균 판매 주기</div></div>`;
     const chMap={캐시샵:'ch-cash',이벤트:'ch-event',패키지:'ch-pkg'};
-    document.getElementById('mSaleTimeline').innerHTML=sorted.map(r=>`<div class="tl-item"><div class="tl-left"><div class="tl-dot ${r.nth===1?'first':''}">${r.nth}</div></div><div class="tl-right"><div class="tl-top"><span class="tl-period">${r.startDate} ~ ${r.endDate}</span><span class="tl-ch ${chMap[r.channel]||'ch-cash'}">${r.channel}</span></div><div class="tl-meta"><div class="tl-meta-item"><strong>기간</strong> ${r.durationDays}일</div>${r.note?`<div class="tl-meta-item"><strong>비고</strong> ${r.note}</div>`:''}</div></div></div>`).join('');
+    document.getElementById('mSaleTimeline').innerHTML=sorted.map(r=>{
+      const priceHtml=r.salePrice?`<div class="tl-meta-item"><strong>판매가</strong> ${r.salePrice.toLocaleString()}원</div>`:'';
+      const rateHtml=(r.dropRate!=null&&r.dropRate!=='')?`<div class="tl-meta-item"><strong>등장확률</strong> ${r.dropRate}%</div>`:'';
+      return`<div class="tl-item"><div class="tl-left"><div class="tl-dot ${r.nth===1?'first':''}">${r.nth}</div></div><div class="tl-right"><div class="tl-top"><span class="tl-period">${r.startDate} ~ ${r.endDate}</span><span class="tl-ch ${chMap[r.channel]||'ch-cash'}">${r.channel}</span></div><div class="tl-meta"><div class="tl-meta-item"><strong>기간</strong> ${r.durationDays}일</div>${priceHtml}${rateHtml}${r.note?`<div class="tl-meta-item"><strong>비고</strong> ${r.note}</div>`:''}</div></div></div>`;
+    }).join('');
   }
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
